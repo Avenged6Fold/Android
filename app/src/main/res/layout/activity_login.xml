@@ -93,7 +93,7 @@
         android:textColor="@color/secondary_colour"
         android:textSize="12sp"
         android:fontFamily="@font/poppinsregular"
-        android:id="@+id/tx_lgn3" />
+        android:id="@+id/tx_lupapassword" />
 
     <TextView
         android:layout_width="wrap_content"
