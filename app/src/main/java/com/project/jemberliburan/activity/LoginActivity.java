@@ -12,9 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -22,13 +20,15 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.project.jemberliburan.Connection.Db_Contract;
 import com.project.jemberliburan.R;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
     private EditText etx_username, etx_password;
+    private Button btn_lgn;
+    private TextView tx_register, tx_lupapassword;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +49,9 @@ public class LoginActivity extends AppCompatActivity {
 
         etx_username = findViewById(R.id.etx_username);
         etx_password = findViewById(R.id.etx_password);
-        Button btn_lgn = findViewById(R.id.btn_lgn);
-        TextView tx_register = findViewById(R.id.tx_register);
+        btn_lgn = findViewById(R.id.btn_lgn);
+        tx_register = findViewById(R.id.tx_register);
+        tx_lupapassword = findViewById(R.id.tx_lupapassword);
 
         // Login button click event
         btn_lgn.setOnClickListener(new View.OnClickListener() {
@@ -129,6 +130,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        tx_lupapassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, LupapasswordActivity.class);
                 startActivity(intent);
             }
         });
