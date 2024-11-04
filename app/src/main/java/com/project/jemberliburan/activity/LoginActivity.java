@@ -125,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        // Register link click event
+
         tx_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
