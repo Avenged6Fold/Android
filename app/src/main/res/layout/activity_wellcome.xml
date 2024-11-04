@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.WellcomeActivity"
+    android:background="@color/white">
+
+    <ImageView
+        android:layout_width="348dp"
+        android:layout_height="387dp"
+        android:src="@drawable/logo_selamatdatang"
+        android:layout_marginTop="170dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/img_1"
+        />
+
+    <TextView
+        android:layout_width="291dp"
+        android:layout_height="46dp"
+        android:text="Your ultimate companion for seamless
+Jember travel experiences."
+        android:textSize="15dp"
+        android:layout_below="@+id/img_1"
+        android:layout_marginTop="32dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:fontFamily="@font/poppinsregular"
+        android:textColor="@color/font_colour"
+        android:id="@+id/tx_1"
+        />
+
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/tx_1"
+        android:background="@drawable/button_shape"
+        android:layout_marginTop="22dp"
+        android:layout_centerHorizontal="true"
+        android:text="AYO MULAI"
+        android:textColor="@color/white"
+        android:fontFamily="@font/poppinsbold"
+        android:textSize="26dp"
+        android:id="@+id/btn_wellcome"
+        />
+
+</RelativeLayout>

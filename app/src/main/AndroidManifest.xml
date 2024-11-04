@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+
+    <application
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:usesCleartextTraffic="true"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@drawable/icon_jeli"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/icon_jeli"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Design.NoActionBar"
+        tools:targetApi="31">
+        <activity
+            android:name=".adapter.DestinasiAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".adapter.ImageSliderAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".activity.NavigasiActivity"
+            android:exported="false" />
+        <activity
+            android:name=".fragment.ProfileFragment"
+            android:exported="false" />
+        <activity
+            android:name=".fragment.TiketFragment"
+            android:exported="false" />
+        <activity
+            android:name=".fragment.DestinasiFragment"
+            android:exported="false" />
+        <activity
+            android:name=".fragment.HomeFragment"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SplashActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.LupapasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.WellcomeActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

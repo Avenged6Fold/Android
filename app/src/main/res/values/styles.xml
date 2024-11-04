@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Design.NoActionBar." parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/primary_colour</item>
+        <item name="colorSecondary">@color/secondary_colour</item>
+        <item name="colorOnBackground">@color/default_colour</item>
+        <item name="colorAccent">@color/font_colour</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorControlHighlight">@color/white</item>
+    </style>
+</resources>
