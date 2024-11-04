@@ -1,5 +1,6 @@
 package com.project.jemberliburan.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -34,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // Cek apakah sudah login
-        SharedPreferences preferences = getSharedPreferences("login_prefs", MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("login_prefs", Context.MODE_PRIVATE);
         boolean isLoggedIn = preferences.getBoolean("isLoggedIn", false);
         if (isLoggedIn) {
             // Langsung buka NavigasiActivity jika sudah login
@@ -133,10 +134,10 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public void onBackPressed() {
+    //@Override
+    //public void onBackPressed() {
         // Tidak melakukan aksi apapun agar pengguna tidak bisa kembali ke layar login
-    }
+
 
     // Fungsi untuk memeriksa apakah perangkat terhubung ke internet
     private boolean isNetworkAvailable() {
