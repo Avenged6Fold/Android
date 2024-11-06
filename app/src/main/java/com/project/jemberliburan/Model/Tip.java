@@ -3,12 +3,12 @@ package com.project.jemberliburan.Model;
 public class Tip {
     private String title;
     private String description;
-    private int imageResourceId;
+    private int imageResId;
 
-    public Tip(String title, String description, int imageResourceId) {
+    public Tip(String title, String description, int imageResId) {
         this.title = title;
         this.description = description;
-        this.imageResourceId = imageResourceId;
+        this.imageResId = imageResId;
     }
 
     public String getTitle() {
@@ -19,7 +19,7 @@ public class Tip {
         return description;
     }
 
-    public int getImageResourceId() {
-        return imageResourceId;
+    public int getImageResId() {
+        return imageResId;
     }
 }
