@@ -40,7 +40,7 @@
             android:name=".fragment.HomeFragment"
             android:exported="false" />
         <activity
-            android:name=".activity.SplashActivity"
+            android:name=".activity.WellcomeActivity"
             android:exported="true" />
         <activity
             android:name=".activity.LupapasswordActivity"
@@ -52,7 +52,7 @@
             android:name=".activity.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.WellcomeActivity"
+            android:name=".activity.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

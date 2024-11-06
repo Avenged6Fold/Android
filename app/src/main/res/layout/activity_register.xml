@@ -8,20 +8,29 @@
     android:background="@color/white">
 
     <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_back"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:id="@+id/img_back"
+        />
+
+    <ImageView
         android:layout_width="153dp"
         android:layout_height="120dp"
         android:src="@drawable/logo_jeli"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="130dp"
         android:id="@+id/img_jl1"
         />
 
     <TextView
-        android:layout_width="125dp"
+        android:layout_width="130dp"
         android:layout_height="48dp"
         android:layout_below="@id/img_jl1"
         android:layout_marginTop="50dp"
-        android:layout_marginStart="56dp"
+        android:layout_marginStart="50dp"
         android:text="Sign Up"
         android:textSize="32sp"
         android:fontFamily="@font/poppinsbold"
@@ -30,10 +39,10 @@
         />
 
     <EditText
-        android:layout_width="300dp"
+        android:layout_width="260dp"
         android:layout_height="50dp"
         android:layout_below="@id/tx_rg1"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:layout_centerHorizontal="true"
         android:backgroundTint="@color/primary_colour"
         android:hint="Email"
@@ -46,10 +55,10 @@
         />
 
     <EditText
-        android:layout_width="300dp"
+        android:layout_width="260dp"
         android:layout_height="50dp"
         android:layout_below="@id/etx_email"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:layout_centerHorizontal="true"
         android:backgroundTint="@color/primary_colour"
         android:hint="Username"
@@ -62,10 +71,10 @@
         />
 
     <EditText
-        android:layout_width="300dp"
+        android:layout_width="260dp"
         android:layout_height="50dp"
         android:layout_below="@id/etx_username"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:layout_centerHorizontal="true"
         android:backgroundTint="@color/primary_colour"
         android:hint="Password"
@@ -78,7 +87,7 @@
         />
 
     <Button
-        android:layout_width="300dp"
+        android:layout_width="260dp"
         android:layout_height="35dp"
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
@@ -96,10 +105,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/btn_register"
         android:layout_marginTop="12dp"
-        android:layout_marginStart="116dp"
+        android:layout_marginStart="95dp"
         android:text="Sudah punya akun?"
         android:textColor="@color/primary_colour"
-        android:textSize="12sp"
+        android:textSize="12dp"
         android:fontFamily="@font/poppinsregular"
         android:id="@+id/tx_rg2"
         />
@@ -109,7 +118,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/btn_register"
         android:layout_marginTop="12dp"
-        android:layout_marginStart="240dp"
+        android:layout_marginStart="220dp"
         android:text="Login"
         android:textColor="@color/secondary_colour"
         android:textSize="12sp"

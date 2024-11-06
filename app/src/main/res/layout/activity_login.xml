@@ -12,15 +12,15 @@
         android:layout_height="120dp"
         android:src="@drawable/logo_jeli"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="165dp"
         android:id="@+id/img_jl1" />
 
     <TextView
-        android:layout_width="113dp"
+        android:layout_width="120dp"
         android:layout_height="48dp"
         android:layout_below="@id/img_jl1"
         android:layout_marginTop="50dp"
-        android:layout_marginStart="56dp"
+        android:layout_marginStart="50dp"
         android:text="Sign In"
         android:textSize="32sp"
         android:fontFamily="@font/poppinsbold"
@@ -29,11 +29,11 @@
 
     <EditText
         android:id="@+id/etx_username"
-        android:layout_width="300dp"
+        android:layout_width="260dp"
         android:layout_height="50dp"
         android:layout_below="@id/tx_lgn1"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:autofillHints=""
         android:backgroundTint="@color/primary_colour"
         android:fontFamily="@font/poppinsregular"
@@ -44,10 +44,10 @@
         android:textSize="16sp" />
 
     <EditText
-        android:layout_width="300dp"
+        android:layout_width="260dp"
         android:layout_height="50dp"
         android:layout_below="@id/etx_username"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:layout_centerHorizontal="true"
         android:backgroundTint="@color/primary_colour"
         android:hint="Password"
@@ -60,8 +60,8 @@
 
     <Button
         android:id="@+id/btn_lgn"
-        android:layout_width="300dp"
-        android:layout_height="48dp"
+        android:layout_width="260dp"
+        android:layout_height="35dp"
         android:layout_below="@id/etx_password"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
@@ -76,10 +76,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/btn_lgn"
         android:layout_marginTop="12dp"
-        android:layout_marginStart="102dp"
+        android:layout_marginStart="80dp"
         android:text="Lupa kata sandi?"
         android:textColor="@color/primary_colour"
-        android:textSize="12sp"
+        android:textSize="12dp"
         android:fontFamily="@font/poppinsregular"
         android:id="@+id/tx_lgn2" />
 
@@ -88,7 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/btn_lgn"
         android:layout_marginTop="12dp"
-        android:layout_marginStart="209dp"
+        android:layout_marginStart="185dp"
         android:text="Forgot Password"
         android:textColor="@color/secondary_colour"
         android:textSize="12sp"
@@ -99,8 +99,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/btn_lgn"
-        android:layout_marginTop="160dp"
-        android:layout_marginStart="117dp"
+        android:layout_marginTop="140dp"
+        android:layout_marginStart="96dp"
         android:text="Belum punya akun?"
         android:textColor="@color/primary_colour"
         android:textSize="12sp"
@@ -111,8 +111,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/btn_lgn"
-        android:layout_marginTop="160dp"
-        android:layout_marginStart="240dp"
+        android:layout_marginTop="140dp"
+        android:layout_marginStart="218dp"
         android:text="Register"
         android:textColor="@color/secondary_colour"
         android:textSize="12sp"

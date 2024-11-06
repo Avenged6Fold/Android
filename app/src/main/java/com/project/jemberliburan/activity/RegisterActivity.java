@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText etx_email, etx_username, etx_password;
     private Button btn_register;
     private TextView tx_login;
+    private ImageView img_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
         etx_password = findViewById(R.id.etx_password);
         btn_register = findViewById(R.id.btn_register);
         tx_login = findViewById(R.id.tx_login);
+        img_back = findViewById(R.id.img_back);
 
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,6 +111,15 @@ public class RegisterActivity extends AppCompatActivity {
 
         // Aksi saat tombol login diklik
         tx_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Pindah ke halaman login
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        img_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Pindah ke halaman login
