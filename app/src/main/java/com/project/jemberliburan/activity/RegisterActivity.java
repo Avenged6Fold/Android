@@ -55,7 +55,6 @@ public class RegisterActivity extends AppCompatActivity {
 
                 // Cek jika semua field terisi
                 if (!email.isEmpty() && !username.isEmpty() && !password.isEmpty()) {
-                    // URL yang akan diakses
                     String url = Db_Contract.urlRegisterActivity;
 
                     // Membuat StringRequest untuk Volley

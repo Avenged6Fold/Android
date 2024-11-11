@@ -35,8 +35,8 @@ public class HomeFragment extends Fragment {
     private TextView greetingTextView;
     private List<Integer> images;
 
-    private RecyclerView recyclerViewDestinations;
-    private RecyclerView recyclerViewImages;
+    private RecyclerView recyclerViewDestinasi;
+    private RecyclerView recyclerFavoritanda;
     private RecyclerView recyclerViewTipsTrip; // RecyclerView untuk Tips Trip
     private CategoryAdapter categoryAdapter;
     private ImageAdapter imageAdapter;
@@ -74,21 +74,21 @@ public class HomeFragment extends Fragment {
         greetingTextView.setText("Halo, " + username);
 
         // Inisialisasi RecyclerView
-        recyclerViewDestinations = view.findViewById(R.id.recyclerViewDestinations);
-        recyclerViewImages = view.findViewById(R.id.recyclerViewImages);
+        recyclerViewDestinasi = view.findViewById(R.id.recyclerdestinasi);
+        recyclerFavoritanda = view.findViewById(R.id.recyclerViewFavoritanda);
         recyclerViewTipsTrip = view.findViewById(R.id.recyclerViewTipsTrip);
 
         // Set up kategori RecyclerView
         categoryList = getCategoryList();
         categoryAdapter = new CategoryAdapter(categoryList, this::onCategorySelected);
-        recyclerViewDestinations.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        recyclerViewDestinations.setAdapter(categoryAdapter);
+        recyclerViewDestinasi.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewDestinasi.setAdapter(categoryAdapter);
 
         // Set up gambar RecyclerView
         imageList = new ArrayList<>(); // Kosongkan gambar awal
         imageAdapter = new ImageAdapter(imageList);
-        recyclerViewImages.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        recyclerViewImages.setAdapter(imageAdapter);
+        recyclerFavoritanda.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        recyclerFavoritanda.setAdapter(imageAdapter);
 
         // Set up RecyclerView untuk Tips Trip
         tipList = getTipList();
@@ -153,7 +153,7 @@ public class HomeFragment extends Fragment {
 
     private void animateCategoryIcon(Category category) {
         if ("Gunung".equals(category.getName())) {
-            View categoryView = recyclerViewDestinations.getChildAt(0); // Ambil kategori pertama
+            View categoryView = recyclerViewDestinasi.getChildAt(0); // Ambil kategori pertama
             if (categoryView != null) {
                 categoryView.animate().rotationY(360).setDuration(500).start();
             }
