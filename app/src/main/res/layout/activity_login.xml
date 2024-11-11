@@ -42,13 +42,13 @@
         android:textColorHint="@color/primary_colour"
         android:textColor="@color/primary_colour"
         android:fontFamily="@font/poppinsregular"
-        android:id="@+id/etx_email"
+        android:id="@+id/etx_username"
         />
 
     <EditText
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_below="@id/etx_email"
+        android:layout_below="@id/etx_username"
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:backgroundTint="@color/primary_colour"
