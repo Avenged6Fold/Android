@@ -1,18 +1,65 @@
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
     android:padding="16dp">
 
-    <!-- Tambahkan konten lainnya sesuai keinginan di sini -->
-
-    <!-- Tombol Logout -->
-    <Button
-        android:id="@+id/btn_logout"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Logout"
-        android:padding="10dp"/>
-</LinearLayout>
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="16dp">
+
+        <!-- Informasi Akun -->
+        <TextView
+            android:id="@+id/txt_account_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nama Pengguna: John Doe\nEmail: johndoe@example.com"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:gravity="center"
+            android:paddingBottom="20dp"/>
+
+        <!-- Tombol Riwayat Pesanan -->
+        <Button
+            android:id="@+id/btn_order_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Riwayat Pesanan"
+            android:padding="10dp"
+            android:layout_marginBottom="10dp"/>
+
+        <!-- Switch Tema -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tema Gelap"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"/>
+
+            <Switch
+                android:id="@+id/switch_theme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"/>
+        </LinearLayout>
+
+        <!-- Tombol Logout -->
+        <Button
+            android:id="@+id/btn_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            android:padding="10dp"
+            android:layout_marginTop="20dp"/>
+    </LinearLayout>
+</ScrollView>
