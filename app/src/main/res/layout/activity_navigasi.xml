@@ -18,5 +18,6 @@
         app:menu="@menu/bottom_navigation"
         android:background="@color/white"
         app:itemTextColor="@color/primary_colour"
-        app:itemIconTint="@color/primary_colour"/>
+        app:itemIconTint="@color/primary_colour"
+        app:itemTextAppearanceActive="@style/CustomMenuTextAppearance"/>
 </LinearLayout>
