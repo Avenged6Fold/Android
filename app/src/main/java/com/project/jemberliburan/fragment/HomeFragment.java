@@ -1,6 +1,7 @@
 package com.project.jemberliburan.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,21 +9,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
+import com.project.jemberliburan.Model.Fitur;
 import com.project.jemberliburan.R;
+import com.project.jemberliburan.activity.BantuanActivity;
+import com.project.jemberliburan.activity.UlasanActivity;
+import com.project.jemberliburan.adapter.DestinasiAdapter;
+import com.project.jemberliburan.adapter.FiturAdapter;
 import com.project.jemberliburan.adapter.ImageSliderAdapter;
 import com.project.jemberliburan.adapter.CategoryAdapter;
 import com.project.jemberliburan.adapter.ImageAdapter;
 import com.project.jemberliburan.adapter.TipAdapter; // Adapter untuk Tips Trip
 import com.project.jemberliburan.Model.Category;
-import com.project.jemberliburan.Model.Image;
+import com.project.jemberliburan.Model.Destinasi;
 import com.project.jemberliburan.Model.Tip; // Model untuk Tips Trip
+import com.project.jemberliburan.detail.DetailDestinasiActivity;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -34,15 +41,17 @@ public class HomeFragment extends Fragment {
     private int currentPosition = 0;
     private TextView greetingTextView;
     private List<Integer> images;
-
+    private RecyclerView recyclerViewFitur;
+    private RecyclerView recyclerViewkategoriDestinasi;
     private RecyclerView recyclerViewDestinasi;
-    private RecyclerView recyclerFavoritanda;
     private RecyclerView recyclerViewTipsTrip; // RecyclerView untuk Tips Trip
+    private FiturAdapter fiturAdapter;
     private CategoryAdapter categoryAdapter;
     private ImageAdapter imageAdapter;
     private TipAdapter tipAdapter; // Adapter untuk Tips Trip
+    private List<Fitur> fiturList;
     private List<Category> categoryList;
-    private List<Image> imageList;
+    private List<Destinasi> imageList;
     private List<Tip> tipList; // Daftar Tips Trip
 
     @Nullable
@@ -55,9 +64,9 @@ public class HomeFragment extends Fragment {
 
         // List gambar untuk ViewPager
         images = Arrays.asList(
-                R.drawable.img_papuma1,
-                R.drawable.img_teluklove2,
-                R.drawable.img_gambir3
+                R.drawable.img_papuma,
+                R.drawable.img_teluklove,
+                R.drawable.img_gambir
         );
 
         // Set adapter untuk ViewPager
@@ -74,29 +83,59 @@ public class HomeFragment extends Fragment {
         greetingTextView.setText("Halo, " + username);
 
         // Inisialisasi RecyclerView
-        recyclerViewDestinasi = view.findViewById(R.id.recyclerdestinasi);
-        recyclerFavoritanda = view.findViewById(R.id.recyclerViewFavoritanda);
+        recyclerViewFitur = view.findViewById(R.id.recyclerViewFitur);
+        recyclerViewkategoriDestinasi = view.findViewById(R.id.recyclerViewKategoriDestinasi);
+        recyclerViewDestinasi = view.findViewById(R.id.recyclerViewDestinasi);
         recyclerViewTipsTrip = view.findViewById(R.id.recyclerViewTipsTrip);
+
+        fiturAdapter = new FiturAdapter(position -> {
+            switch (position) {
+                case 0: // Jelajahi
+                    startActivity(new Intent(getContext(), DestinasiFragment.class));
+                    break;
+                case 1: // Profil Saya
+                    startActivity(new Intent(getContext(), ProfileFragment.class));
+                    break;
+                case 2: // Cek Tiket
+                    startActivity(new Intent(getContext(), TiketFragment.class));
+                    break;
+                case 3: // Riwayat
+                    startActivity(new Intent(getContext(), TiketFragment.class));
+                    break;
+                case 4: // Ulasan
+                    startActivity(new Intent(getContext(), UlasanActivity.class));
+                    break;
+                case 5: // Bantuan
+                    startActivity(new Intent(getContext(), BantuanActivity.class));
+                    break;
+            }
+        });
+        recyclerViewFitur.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewFitur.setAdapter(fiturAdapter);
+
+        tipAdapter = new TipAdapter(position -> {
+            switch (position) {
+                case 0: // TipsTrip1
+                    startActivity(new Intent(getContext(), UlasanActivity.class));
+                    break;
+                case 1: // TipsTrip2
+                    startActivity(new Intent(getContext(), UlasanActivity.class));
+                    break;
+                case 2: // TipsTrip3
+                    startActivity(new Intent(getContext(), UlasanActivity.class));
+                    break;
+
+            }
+        });
+        recyclerViewTipsTrip.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewTipsTrip.setAdapter(tipAdapter);
 
         // Set up kategori RecyclerView
         categoryList = getCategoryList();
         categoryAdapter = new CategoryAdapter(categoryList, this::onCategorySelected);
-        recyclerViewDestinasi.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        recyclerViewDestinasi.setAdapter(categoryAdapter);
+        recyclerViewkategoriDestinasi.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewkategoriDestinasi.setAdapter(categoryAdapter);
 
-        // Set up gambar RecyclerView
-        imageList = new ArrayList<>(); // Kosongkan gambar awal
-        imageAdapter = new ImageAdapter(imageList);
-        recyclerFavoritanda.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        recyclerFavoritanda.setAdapter(imageAdapter);
-
-        // Set up RecyclerView untuk Tips Trip
-        tipList = getTipList();
-        tipAdapter = new TipAdapter(getContext(), tipList, tip -> {
-            // Aksi ketika item Tips Trip di-klik
-        });
-        recyclerViewTipsTrip.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        recyclerViewTipsTrip.setAdapter(tipAdapter);
 
         return view;
     }
@@ -114,6 +153,7 @@ public class HomeFragment extends Fragment {
         };
     }
 
+
     private List<Category> getCategoryList() {
         return Arrays.asList(
                 new Category("Gunung", R.drawable.icon_destinasi),
@@ -122,43 +162,63 @@ public class HomeFragment extends Fragment {
         );
     }
 
-    private List<Tip> getTipList() {
-        return Arrays.asList(
-                new Tip("Tips Liburan Hemat & Praktis", "Tips Liburan", R.drawable.tip1),
-                new Tip("Prepare Barang Bawaanmu", "Tips Packing", R.drawable.tip2),
-                new Tip("Trip Cerdas di Setiap Musim", "Tips Musim", R.drawable.tip3)
-        );
-    }
 
     private void onCategorySelected(Category category) {
-        // Memperbarui daftar gambar berdasarkan kategori yang dipilih
-        imageList.clear();
-        switch (category.getName()) {
-            case "Gunung":
-                imageList.add(new Image(R.drawable.icon_home));
-                imageList.add(new Image(R.drawable.icon_tiket));
-                animateCategoryIcon(category);
-                break;
-            case "Pantai":
-                imageList.add(new Image(R.drawable.icon_porfile));
-                imageList.add(new Image(R.drawable.icon_destinasi));
-                break;
-            case "Bukit":
-                imageList.add(new Image(R.drawable.icon_jeli));
-                imageList.add(new Image(R.drawable.icon_tiket));
-                break;
+        // Memperbarui daftar destinasi berdasarkan kategori yang dipilih
+        List<DestinasiAdapter.DestinasiItem> destinasiList;
+
+        if ("Gunung".equals(category.getName())) {
+            destinasiList = Arrays.asList(
+                    new DestinasiAdapter.DestinasiItem("Gunung Gambir", R.drawable.img_gambir, "Jember, Jawa Timur", 4.6, DetailDestinasiActivity.class)
+            );
+        } else if ("Pantai".equals(category.getName())) {
+            destinasiList = Arrays.asList(
+                    new DestinasiAdapter.DestinasiItem("Pantai Papuma", R.drawable.img_papuma, "Jember, Jawa Timur", 4.9, DetailDestinasiActivity.class),
+                    new DestinasiAdapter.DestinasiItem("Pantai Watu Ulo", R.drawable.img_watuulo, "Jember, Jawa Timur", 4.7, DetailDestinasiActivity.class)
+            );
+        } else if ("Bukit".equals(category.getName())) {
+            destinasiList = Arrays.asList(
+                    new DestinasiAdapter.DestinasiItem("Rembangan", R.drawable.img_rembangan, "Jember, Jawa Timur", 4.8, DetailDestinasiActivity.class),
+                    new DestinasiAdapter.DestinasiItem("Bukit SJ88", R.drawable.img_sj88, "Jember, Jawa Timur", 4.7, DetailDestinasiActivity.class)
+            );
+        } else {
+            // Default list jika tidak ada kategori yang cocok
+            destinasiList = new ArrayList<>();
         }
-        imageAdapter.notifyDataSetChanged();
+
+        // Set adapter baru untuk RecyclerView destinasi
+        DestinasiAdapter destinasiAdapter = new DestinasiAdapter(requireContext(), destinasiList);
+        recyclerViewDestinasi.setLayoutManager(new GridLayoutManager(requireContext(), 2));
+        recyclerViewDestinasi.setAdapter(destinasiAdapter);
+
+        // Animasi untuk kategori (opsional)
+        animateCategoryIcon(category);
     }
 
+
     private void animateCategoryIcon(Category category) {
-        if ("Gunung".equals(category.getName())) {
-            View categoryView = recyclerViewDestinasi.getChildAt(0); // Ambil kategori pertama
+        // Temukan posisi kategori berdasarkan nama
+        int position = categoryList.indexOf(category);
+        if (position >= 0 && position < recyclerViewkategoriDestinasi.getChildCount()) {
+            // Ambil tampilan kategori yang sesuai
+            View categoryView = recyclerViewkategoriDestinasi.getChildAt(position);
+
+            // Periksa jika tampilan tidak null
             if (categoryView != null) {
-                categoryView.animate().rotationY(360).setDuration(500).start();
+                // Reset properti rotasi
+                categoryView.setRotationY(0);
+
+                // Jalankan animasi rotasi
+                categoryView.animate()
+                        .rotationY(360)  // Rotasi 360 derajat
+                        .setDuration(500) // Durasi animasi 500ms
+                        .start();
             }
         }
     }
+
+
+
 
     @Override
     public void onResume() {

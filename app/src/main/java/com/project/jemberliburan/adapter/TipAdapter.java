@@ -1,65 +1,69 @@
 package com.project.jemberliburan.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.project.jemberliburan.R;
-import com.project.jemberliburan.Model.Tip;
-import java.util.List;
 
 public class TipAdapter extends RecyclerView.Adapter<TipAdapter.TipViewHolder> {
 
-    private Context context;
-    private List<Tip> tips;
-    private OnItemClickListener onItemClickListener;
+    // Daftar icon tip
+    private final int[] tipIcons = {
+            R.drawable.img_tipstrip1,
+            R.drawable.img_tipstrip2,
+            R.drawable.img_tipstrip3
+    };
 
-    public interface OnItemClickListener {
-        void onItemClick(Tip tip);
+    private final OnTipClickListener clickListener;
+
+    // Listener untuk klik item tip
+    public interface OnTipClickListener {
+        void onTipClick(int position);
     }
 
-    public TipAdapter(Context context, List<Tip> tips, OnItemClickListener onItemClickListener) {
-        this.context = context;
-        this.tips = tips;
-        this.onItemClickListener = onItemClickListener;
+    // Constructor
+    public TipAdapter(OnTipClickListener clickListener) {
+        this.clickListener = clickListener;
     }
 
     @NonNull
     @Override
     public TipViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_tip, parent, false);
+        // Inflate layout item_tip
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_tip, parent, false);
         return new TipViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull TipViewHolder holder, int position) {
-        Tip tip = tips.get(position);
-        holder.titleTextView.setText(tip.getTitle());
-        holder.descriptionTextView.setText(tip.getDescription());
-        holder.imageView.setImageResource(tip.getImageResId());
-
-        holder.itemView.setOnClickListener(v -> onItemClickListener.onItemClick(tip));
+        // Bind data ke ViewHolder
+        holder.bind(tipIcons[position], position);
     }
 
     @Override
     public int getItemCount() {
-        return tips.size();
+        return tipIcons.length;
     }
 
-    static class TipViewHolder extends RecyclerView.ViewHolder {
-        TextView titleTextView;
-        TextView descriptionTextView;
-        ImageView imageView;
+    class TipViewHolder extends RecyclerView.ViewHolder {
+        private final ImageView tipIconImageView;
 
         public TipViewHolder(@NonNull View itemView) {
             super(itemView);
-            titleTextView = itemView.findViewById(R.id.tipTitle);
-            descriptionTextView = itemView.findViewById(R.id.tipDescription);
-            imageView = itemView.findViewById(R.id.tipImage);
+            tipIconImageView = itemView.findViewById(R.id.item_icon); // Pastikan ID sama di item_tip.xml
+        }
+
+        public void bind(int tipIcon, int position) {
+            tipIconImageView.setImageResource(tipIcon);
+            tipIconImageView.setOnClickListener(v -> {
+                if (clickListener != null) {
+                    clickListener.onTipClick(position);
+                }
+            });
         }
     }
 }

@@ -1,9 +1,9 @@
 package com.project.jemberliburan.Model;
 
-public class Tip {
+public class Destinasi {
     private int imageResId;
 
-    public Tip(int imageResId) {
+    public Destinasi(int imageResId) {
         this.imageResId = imageResId;
     }
 

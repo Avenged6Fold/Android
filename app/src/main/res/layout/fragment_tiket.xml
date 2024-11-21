@@ -1,14 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.TiketFragment">
+    tools:context=".fragment.TiketFragment"
+    android:background="@color/white">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        android:background="@color/primary_colour"
+        android:id="@+id/view_tiket1"
+        />
+    <View
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_marginTop="100dp"
+        android:background="@drawable/view_home"
+        />
 
-</FrameLayout>
+
+
+</RelativeLayout>

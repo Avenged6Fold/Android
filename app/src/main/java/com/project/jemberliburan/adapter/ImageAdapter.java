@@ -8,15 +8,15 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.project.jemberliburan.Model.Image;
+import com.project.jemberliburan.Model.Destinasi;
 import com.project.jemberliburan.R;
 
 import java.util.List;
 
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHolder> {
-    private List<Image> imageList;
+    private List<Destinasi> imageList;
 
-    public ImageAdapter(List<Image> imageList) {
+    public ImageAdapter(List<Destinasi> imageList) {
         this.imageList = imageList;
     }
 
