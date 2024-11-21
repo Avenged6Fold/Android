@@ -2,6 +2,7 @@ package com.project.jemberliburan.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
@@ -56,9 +58,13 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Metode untuk mengirim kode verifikasi
+     */
     private void sendVerificationCode(String email) {
         // Batasi pengiriman dengan mengatur canSendRequest ke false
         canSendRequest = false;
+        sendVerificationButton.setEnabled(false); // Blok tombol
 
         String url = Db_Contract.urlSendVerificationCode; // Endpoint untuk pengiriman kode
         Log.d(TAG, "Sending verification code to: " + email);
@@ -66,44 +72,24 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 response -> {
                     Log.d(TAG, "Server response: " + response);
-                    try {
-                        JSONObject jsonResponse = new JSONObject(response);
-                        String status = jsonResponse.optString("status");
-                        String message = jsonResponse.optString("message");
-
-                        if ("success".equalsIgnoreCase(status)) {
-                            Toast.makeText(ForgotPasswordActivity.this, message, Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(ForgotPasswordActivity.this, VerificationCodeActivity.class);
-                            intent.putExtra("email", email);
-                            startActivity(intent);
-                        } else {
-                            Toast.makeText(ForgotPasswordActivity.this, message, Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (JSONException e) {
-                        Log.e(TAG, "JSON parsing error: " + e.getMessage());
-                        Toast.makeText(ForgotPasswordActivity.this, "Kesalahan parsing data.", Toast.LENGTH_SHORT).show();
-                    }
+                    handleSuccessResponse(response, email);
                 },
-                error -> {
-                    if (error.networkResponse != null && error.networkResponse.statusCode == 429) {
-                        Log.w(TAG, "Too Many Requests. Waiting before retry...");
-                        Toast.makeText(this, "Terlalu banyak permintaan. Menunggu 5 detik sebelum mencoba ulang.", Toast.LENGTH_SHORT).show();
-
-                        // Tunggu 5 detik sebelum mencoba ulang
-                        new android.os.Handler().postDelayed(() -> {
-                            canSendRequest = true;
-                            sendVerificationCode(email); // Coba ulang
-                        }, 5000);
-                    } else {
-                        handleVolleyError(error);
-                    }
-                }
+                error -> handleVolleyError(error)
         ) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("email", email);
                 return params;
+            }
+
+            @Override
+            public DefaultRetryPolicy getRetryPolicy() {
+                return new DefaultRetryPolicy(
+                        5000, // Timeout dalam milidetik
+                        0,    // Tidak ada retry
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+                );
             }
         };
 
@@ -112,27 +98,49 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
 
         // Tambahkan delay 60 detik sebelum pengguna dapat mengirim ulang permintaan
-        new android.os.Handler().postDelayed(() -> canSendRequest = true, 60000);
+        new Handler().postDelayed(() -> {
+            canSendRequest = true;
+            sendVerificationButton.setEnabled(true); // Aktifkan tombol kembali
+        }, 60000); // 60 detik
     }
 
+    /**
+     * Tangani respons sukses dari server
+     */
+    private void handleSuccessResponse(String response, String email) {
+        try {
+            JSONObject jsonResponse = new JSONObject(response);
+            String status = jsonResponse.optString("status");
+            String message = jsonResponse.optString("message");
+
+            if ("success".equalsIgnoreCase(status)) {
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, VerificationCodeActivity.class);
+                intent.putExtra("email", email);
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+            }
+        } catch (JSONException e) {
+            Log.e(TAG, "JSON parsing error: " + e.getMessage());
+            Toast.makeText(this, "Kesalahan parsing data.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * Tangani error dari server atau jaringan
+     */
     private void handleVolleyError(VolleyError error) {
-        if (error.networkResponse != null) {
-            // Jika ada respons dari server
-            String errorData = new String(error.networkResponse.data);
-            Log.e(TAG, "Error Response Code: " + error.networkResponse.statusCode);
-            Log.e(TAG, "Error Data: " + errorData);
-            Toast.makeText(this, "Kesalahan Server: " + errorData, Toast.LENGTH_SHORT).show();
-        } else if (error.getMessage() != null) {
-            // Jika tidak ada respons tetapi ada pesan error
-            Log.e(TAG, "Error Message: " + error.getMessage());
-            Toast.makeText(this, "Kesalahan Jaringan: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+        if (error.networkResponse != null && error.networkResponse.statusCode == 429) {
+            Log.w(TAG, "Too Many Requests. Waiting before retry...");
+            Toast.makeText(this, "Terlalu banyak permintaan. Tunggu sebelum mencoba lagi.", Toast.LENGTH_SHORT).show();
         } else {
-            // Jika tidak ada respons atau pesan error
-            Log.e(TAG, "Unknown error occurred");
-            Toast.makeText(this, "Kesalahan tidak diketahui. Periksa koneksi Anda.", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "Error: " + error.getMessage());
+            Toast.makeText(this, "Kesalahan jaringan: " + error.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
         // Tetapkan ulang canSendRequest menjadi true agar pengguna bisa mencoba lagi
         canSendRequest = true;
+        sendVerificationButton.setEnabled(true);
     }
 }
