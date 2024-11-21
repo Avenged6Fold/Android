@@ -3,6 +3,8 @@ package com.project.jemberliburan.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,9 +29,10 @@ public class VerificationCodeActivity extends AppCompatActivity {
     private static final String TAG = "VerificationCodeActivity";
     private static final long TIMER_DURATION = 60000; // 1 menit dalam milidetik
 
-    private EditText verificationCodeEditText;
+    private EditText inputField1, inputField2, inputField3, inputField4, inputField5, inputField6;
     private Button verifyCodeButton;
     private TextView resendCodeText;
+    private String email; // Simpan email untuk keperluan resend kode
     private CountDownTimer countDownTimer;
     private boolean isWaiting = false;
 
@@ -38,38 +41,112 @@ public class VerificationCodeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verification_code);
 
-        // Ambil data email dari Intent
-        String email = getIntent().getStringExtra("email");
+        // Ambil email dari Intent
+        email = getIntent().getStringExtra("email");
 
-        // Initialize UI elements
-        verificationCodeEditText = findViewById(R.id.verificationCodeEditText);
-        verifyCodeButton = findViewById(R.id.verifyCodeButton);
-        resendCodeText = findViewById(R.id.resendCodeText);
+        if (email == null || email.isEmpty()) {
+            Toast.makeText(this, "Email tidak valid. Harap kembali ke halaman sebelumnya.", Toast.LENGTH_SHORT).show();
+            finish(); // Kembali ke halaman sebelumnya jika email tidak valid
+            return;
+        }
 
-        // Button click listener untuk verifikasi kode
+        Log.d(TAG, "Email yang diterima: " + email);
+
+        // Inisialisasi UI
+        initViews();
+
+        // Tombol verifikasi kode
         verifyCodeButton.setOnClickListener(v -> {
-            String verificationCode = verificationCodeEditText.getText().toString().trim();
-            if (verificationCode.isEmpty()) {
-                Toast.makeText(this, "Kode verifikasi tidak boleh kosong", Toast.LENGTH_SHORT).show();
+            String verificationCode = collectVerificationCode();
+            if (verificationCode.length() < 6) {
+                Toast.makeText(this, "Kode verifikasi tidak valid", Toast.LENGTH_SHORT).show();
             } else {
-                verifyCode(email, verificationCode);
+                verifyCode(verificationCode);
             }
         });
 
-        // Listener untuk Kirim Ulang Kode
+        // Tombol kirim ulang kode
         resendCodeText.setOnClickListener(v -> {
             if (!isWaiting) {
-                resendVerificationCode(email);
+                clearInputs();
+                resendVerificationCode();
                 startTimer();
             }
         });
     }
 
     /**
+     * Inisialisasi semua elemen UI
+     */
+    private void initViews() {
+        inputField1 = findViewById(R.id.inputField1);
+        inputField2 = findViewById(R.id.inputField2);
+        inputField3 = findViewById(R.id.inputField3);
+        inputField4 = findViewById(R.id.inputField4);
+        inputField5 = findViewById(R.id.inputField5);
+        inputField6 = findViewById(R.id.inputField6);
+        verifyCodeButton = findViewById(R.id.verifyCodeButton);
+        resendCodeText = findViewById(R.id.resendCodeText);
+
+        setupTextWatchers();
+    }
+
+    /**
+     * Menggabungkan input dari semua EditText menjadi satu kode verifikasi
+     */
+    private String collectVerificationCode() {
+        return inputField1.getText().toString().trim() +
+                inputField2.getText().toString().trim() +
+                inputField3.getText().toString().trim() +
+                inputField4.getText().toString().trim() +
+                inputField5.getText().toString().trim() +
+                inputField6.getText().toString().trim();
+    }
+
+    /**
+     * Membersihkan semua input EditText
+     */
+    private void clearInputs() {
+        inputField1.setText("");
+        inputField2.setText("");
+        inputField3.setText("");
+        inputField4.setText("");
+        inputField5.setText("");
+        inputField6.setText("");
+        inputField1.requestFocus(); // Fokus ke input pertama
+    }
+
+    /**
+     * Menavigasikan antar EditText secara otomatis saat input terisi
+     */
+    private void setupTextWatchers() {
+        setupTextWatcher(inputField1, inputField2);
+        setupTextWatcher(inputField2, inputField3);
+        setupTextWatcher(inputField3, inputField4);
+        setupTextWatcher(inputField4, inputField5);
+        setupTextWatcher(inputField5, inputField6);
+    }
+
+    private void setupTextWatcher(EditText current, EditText next) {
+        current.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 1) next.requestFocus();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+    }
+
+    /**
      * Verifikasi kode melalui server
      */
-    private void verifyCode(String email, String verificationCode) {
-        String url = Db_Contract.urlVerifyCode; // Endpoint verify-code.php
+    private void verifyCode(String verificationCode) {
+        String url = Db_Contract.urlVerifyCode; // URL untuk endpoint verify-code.php
         Log.d(TAG, "Verifying code for: " + email);
 
         JSONObject params = new JSONObject();
@@ -112,11 +189,8 @@ public class VerificationCodeActivity extends AppCompatActivity {
     /**
      * Kirim ulang kode verifikasi melalui server
      */
-    private void resendVerificationCode(String email) {
-        resendCodeText.setText("Mengirim...");
-        resendCodeText.setClickable(false);
-
-        String url = Db_Contract.urlSendVerificationCode; // Endpoint send-verification-code.php
+    private void resendVerificationCode() {
+        String url = Db_Contract.urlSendVerificationCode; // URL untuk endpoint send-verification-code.php
         JSONObject params = new JSONObject();
         try {
             params.put("email", email);
