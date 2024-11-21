@@ -2,4 +2,8 @@
     <string name="app_name">jemberliburan</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="verify_code_title">Verifikasi Kode</string>
+    <string name="verify_code_button">Verifikasi</string>
+    <string name="resend_code">Kirim Ulang Kode</string>
+    <string name="app_logo">Logo Aplikasi</string>
 </resources>
