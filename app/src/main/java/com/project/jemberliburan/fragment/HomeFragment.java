@@ -28,6 +28,8 @@ import com.project.jemberliburan.adapter.TipAdapter; // Adapter untuk Tips Trip
 import com.project.jemberliburan.Model.Category;
 import com.project.jemberliburan.Model.Destinasi;
 import com.project.jemberliburan.Model.Tip; // Model untuk Tips Trip
+import com.project.jemberliburan.detail.DetailDestinasiActivity;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -62,9 +64,9 @@ public class HomeFragment extends Fragment {
 
         // List gambar untuk ViewPager
         images = Arrays.asList(
-                R.drawable.img_papuma1,
-                R.drawable.img_teluklove2,
-                R.drawable.img_gambir3
+                R.drawable.img_papuma,
+                R.drawable.img_teluklove,
+                R.drawable.img_gambir
         );
 
         // Set adapter untuk ViewPager
@@ -167,15 +169,17 @@ public class HomeFragment extends Fragment {
 
         if ("Gunung".equals(category.getName())) {
             destinasiList = Arrays.asList(
-                    new DestinasiAdapter.DestinasiItem("Gunung Rembangan", R.drawable.img_papuma1, GunungPapandayanActivity.class)
+                    new DestinasiAdapter.DestinasiItem("Gunung Gambir", R.drawable.img_gambir, "Jember, Jawa Timur", 4.6, DetailDestinasiActivity.class)
             );
         } else if ("Pantai".equals(category.getName())) {
             destinasiList = Arrays.asList(
-                    new DestinasiAdapter.DestinasiItem("Pantai Teluk Love", R.drawable.img_teluklove2, PantaiTelukLoveActivity.class)
+                    new DestinasiAdapter.DestinasiItem("Pantai Papuma", R.drawable.img_papuma, "Jember, Jawa Timur", 4.9, DetailDestinasiActivity.class),
+                    new DestinasiAdapter.DestinasiItem("Pantai Watu Ulo", R.drawable.img_watuulo, "Jember, Jawa Timur", 4.7, DetailDestinasiActivity.class)
             );
         } else if ("Bukit".equals(category.getName())) {
             destinasiList = Arrays.asList(
-                    new DestinasiAdapter.DestinasiItem("Bukit Gambir", R.drawable.img_gambir3, BukitGambirActivity.class)
+                    new DestinasiAdapter.DestinasiItem("Rembangan", R.drawable.img_rembangan, "Jember, Jawa Timur", 4.8, DetailDestinasiActivity.class),
+                    new DestinasiAdapter.DestinasiItem("Bukit SJ88", R.drawable.img_sj88, "Jember, Jawa Timur", 4.7, DetailDestinasiActivity.class)
             );
         } else {
             // Default list jika tidak ada kategori yang cocok
@@ -193,13 +197,28 @@ public class HomeFragment extends Fragment {
 
 
     private void animateCategoryIcon(Category category) {
-        if ("Gunung".equals(category.getName())) {
-            View categoryView = recyclerViewkategoriDestinasi.getChildAt(0); // Ambil kategori pertama
+        // Temukan posisi kategori berdasarkan nama
+        int position = categoryList.indexOf(category);
+        if (position >= 0 && position < recyclerViewkategoriDestinasi.getChildCount()) {
+            // Ambil tampilan kategori yang sesuai
+            View categoryView = recyclerViewkategoriDestinasi.getChildAt(position);
+
+            // Periksa jika tampilan tidak null
             if (categoryView != null) {
-                categoryView.animate().rotationY(360).setDuration(500).start();
+                // Reset properti rotasi
+                categoryView.setRotationY(0);
+
+                // Jalankan animasi rotasi
+                categoryView.animate()
+                        .rotationY(360)  // Rotasi 360 derajat
+                        .setDuration(500) // Durasi animasi 500ms
+                        .start();
             }
         }
     }
+
+
+
 
     @Override
     public void onResume() {

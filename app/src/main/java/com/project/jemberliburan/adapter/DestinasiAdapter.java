@@ -35,6 +35,9 @@ public class DestinasiAdapter extends RecyclerView.Adapter<DestinasiAdapter.View
         DestinasiItem item = destinasiList.get(position);
         holder.imageView.setImageResource(item.getImageResId());
         holder.nameTextView.setText(item.getName());
+        holder.addressTextView.setText(item.getAddress()); // Set alamat
+        holder.ratingTextView.setText("⭐ " + item.getRating()); // Set rating
+
 
         // Set klik listener untuk card
         holder.cardView.setOnClickListener(v -> {
@@ -52,12 +55,17 @@ public class DestinasiAdapter extends RecyclerView.Adapter<DestinasiAdapter.View
         ImageView imageView;
         TextView nameTextView;
         CardView cardView;
+        TextView addressTextView;  // Tambahkan referensi untuk alamat
+        TextView ratingTextView;   // Tambahkan referensi untuk rating
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.destinationImage);
-            nameTextView = itemView.findViewById(R.id.destinationName);
-            cardView = itemView.findViewById(R.id.cardView);
+            imageView = itemView.findViewById(R.id.destinasiImage);
+            nameTextView = itemView.findViewById(R.id.destinasiName);
+            addressTextView = itemView.findViewById(R.id.destinasiAddress); // Inisialisasi
+            ratingTextView = itemView.findViewById(R.id.destinasiRating);   // Inisialisasi
+            cardView = itemView.findViewById(R.id.cardview);
         }
     }
 
@@ -65,11 +73,15 @@ public class DestinasiAdapter extends RecyclerView.Adapter<DestinasiAdapter.View
     public static class DestinasiItem {
         private String name;
         private int imageResId;
+        private String address;  // Tambahkan properti alamat
+        private double rating;   // Tambahkan properti rating
         private Class<?> destinationActivity;
 
-        public DestinasiItem(String name, int imageResId, Class<?> destinationActivity) {
+        public DestinasiItem(String name, int imageResId, String address, double rating, Class<?> destinationActivity) {
             this.name = name;
             this.imageResId = imageResId;
+            this.address = address;
+            this.rating = rating;
             this.destinationActivity = destinationActivity;
         }
 
@@ -81,8 +93,17 @@ public class DestinasiAdapter extends RecyclerView.Adapter<DestinasiAdapter.View
             return imageResId;
         }
 
+        public String getAddress() {
+            return address;
+        }
+
+        public double getRating() {
+            return rating;
+        }
+
         public Class<?> getDestinationActivity() {
             return destinationActivity;
         }
     }
+
 }

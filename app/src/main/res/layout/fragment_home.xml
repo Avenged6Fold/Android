@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tx_home1"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="-5dp"
+            android:layout_marginTop="-12dp"
             android:text="Mulai Liburanmu"
             android:textColor="@color/white"
             android:textSize="30sp"
@@ -95,16 +95,16 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/img_txdestinasi"
-                            android:layout_marginTop="15dp"
-                            android:padding="8dp" />
+                            android:layout_marginTop="5dp"
+                            />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recyclerViewDestinasi"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/recyclerViewKategoriDestinasi"
-                            android:layout_marginTop="15dp"
-                            android:padding="8dp" />
+                            android:layout_marginTop="5dp"
+                            />
 
                         <!-- Trip Tips Section -->
                         <ImageView
@@ -112,7 +112,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/recyclerViewDestinasi"
-                            android:layout_marginTop="20dp"
+                            android:layout_marginTop="15dp"
                             android:layout_marginLeft="10dp"
                             android:src="@drawable/icon_txtipstrip" />
 
@@ -127,12 +127,17 @@
                 </RelativeLayout>
         </ScrollView>
 
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/buttoncari"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="230dp"
-                />
+            android:id="@+id/btn_carifitur"
+            />
+
+
+
 
 </RelativeLayout>
