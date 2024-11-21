@@ -127,17 +127,25 @@
                 </RelativeLayout>
         </ScrollView>
 
+        <androidx.cardview.widget.CardView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            card_view:cardCornerRadius="25dp"
+            card_view:cardElevation="4dp"
+            card_view:cardBackgroundColor="@color/white"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="230dp"
+            >
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/buttoncari"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="230dp"
             android:id="@+id/btn_carifitur"
             />
 
-
-
+        </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

@@ -11,11 +11,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
-import com.project.jemberliburan.Model.Fitur;
 import com.project.jemberliburan.R;
 import com.project.jemberliburan.activity.BantuanActivity;
 import com.project.jemberliburan.activity.UlasanActivity;
@@ -23,11 +21,8 @@ import com.project.jemberliburan.adapter.DestinasiAdapter;
 import com.project.jemberliburan.adapter.FiturAdapter;
 import com.project.jemberliburan.adapter.ImageSliderAdapter;
 import com.project.jemberliburan.adapter.CategoryAdapter;
-import com.project.jemberliburan.adapter.ImageAdapter;
 import com.project.jemberliburan.adapter.TipAdapter; // Adapter untuk Tips Trip
 import com.project.jemberliburan.Model.Category;
-import com.project.jemberliburan.Model.Destinasi;
-import com.project.jemberliburan.Model.Tip; // Model untuk Tips Trip
 import com.project.jemberliburan.detail.DetailDestinasiActivity;
 
 import java.util.ArrayList;
@@ -47,12 +42,9 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerViewTipsTrip; // RecyclerView untuk Tips Trip
     private FiturAdapter fiturAdapter;
     private CategoryAdapter categoryAdapter;
-    private ImageAdapter imageAdapter;
     private TipAdapter tipAdapter; // Adapter untuk Tips Trip
-    private List<Fitur> fiturList;
     private List<Category> categoryList;
-    private List<Destinasi> imageList;
-    private List<Tip> tipList; // Daftar Tips Trip
+
 
     @Nullable
     @Override
@@ -155,23 +147,32 @@ public class HomeFragment extends Fragment {
 
 
     private List<Category> getCategoryList() {
-        return Arrays.asList(
-                new Category("Gunung", R.drawable.icon_destinasi),
-                new Category("Pantai", R.drawable.icon_home),
-                new Category("Bukit", R.drawable.icon_tiket)
-        );
+        // Membuat daftar kategori
+        List<Category> categories = new ArrayList<>();
+        categories.add(new Category("topdestinasi", R.drawable.icon_destinasi, true));
+        categories.add(new Category("Gunung", 0, false));
+        categories.add(new Category("Pantai", 0, false)); // Tidak menampilkan ikon
+        categories.add(new Category("Bukit", 0, false)); // Tidak menampilkan ikon
+        return categories;
     }
+
 
 
     private void onCategorySelected(Category category) {
         // Memperbarui daftar destinasi berdasarkan kategori yang dipilih
         List<DestinasiAdapter.DestinasiItem> destinasiList;
 
-        if ("Gunung".equals(category.getName())) {
+        if ("topdestinasi".equals(category.getName())) {
             destinasiList = Arrays.asList(
-                    new DestinasiAdapter.DestinasiItem("Gunung Gambir", R.drawable.img_gambir, "Jember, Jawa Timur", 4.6, DetailDestinasiActivity.class)
+                    new DestinasiAdapter.DestinasiItem("Pantai Papuma", R.drawable.img_papuma, "Jember, Jawa Timur", 4.9, DetailDestinasiActivity.class),
+                    new DestinasiAdapter.DestinasiItem("Rembangan", R.drawable.img_rembangan, "Jember, Jawa Timur", 4.8, DetailDestinasiActivity.class),
+                    new DestinasiAdapter.DestinasiItem("Gunung Gambir", R.drawable.img_gambir, "Jember, Jawa Timur", 4.8, DetailDestinasiActivity.class)
             );
-        } else if ("Pantai".equals(category.getName())) {
+        } else if ("Gunung".equals(category.getName())) {
+            destinasiList = Arrays.asList(
+                    new DestinasiAdapter.DestinasiItem("Gunung Gambir", R.drawable.img_gambir, "Jember, Jawa Timur", 4.8, DetailDestinasiActivity.class)
+            );
+        }else if ("Pantai".equals(category.getName())) {
             destinasiList = Arrays.asList(
                     new DestinasiAdapter.DestinasiItem("Pantai Papuma", R.drawable.img_papuma, "Jember, Jawa Timur", 4.9, DetailDestinasiActivity.class),
                     new DestinasiAdapter.DestinasiItem("Pantai Watu Ulo", R.drawable.img_watuulo, "Jember, Jawa Timur", 4.7, DetailDestinasiActivity.class)
@@ -188,7 +189,7 @@ public class HomeFragment extends Fragment {
 
         // Set adapter baru untuk RecyclerView destinasi
         DestinasiAdapter destinasiAdapter = new DestinasiAdapter(requireContext(), destinasiList);
-        recyclerViewDestinasi.setLayoutManager(new GridLayoutManager(requireContext(), 2));
+        recyclerViewDestinasi.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         recyclerViewDestinasi.setAdapter(destinasiAdapter);
 
         // Animasi untuk kategori (opsional)
