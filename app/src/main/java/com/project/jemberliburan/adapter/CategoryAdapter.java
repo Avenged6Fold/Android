@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.project.jemberliburan.R;
@@ -41,26 +42,48 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         Category category = categoryList.get(position);
 
+        // Atur visibilitas elemen
         if ("topdestinasi".equals(category.getName())) {
-            // Hanya tampilkan ikon tanpa nama
+            // Top Destinasi: hanya tampilkan ikon, sembunyikan teks
             holder.categoryIcon.setVisibility(View.VISIBLE);
             holder.categoryIcon.setImageResource(category.getIconResId());
             holder.categoryName.setVisibility(View.GONE); // Sembunyikan nama
         } else {
-            // Tampilkan ikon dan nama sesuai properti
-            if (category.isShowIcon()) {
-                holder.categoryIcon.setVisibility(View.VISIBLE);
-                holder.categoryIcon.setImageResource(category.getIconResId());
-            } else {
-                holder.categoryIcon.setVisibility(View.GONE);
-            }
+            // Kategori lainnya: tampilkan teks dan ikon
             holder.categoryName.setVisibility(View.VISIBLE);
             holder.categoryName.setText(category.getName());
+            holder.categoryIcon.setVisibility(View.VISIBLE);
+            holder.categoryIcon.setImageResource(category.getIconResId());
         }
 
-        // Listener untuk item klik
-        holder.itemView.setOnClickListener(v -> listener.onCategoryClick(category));
+        // Ubah warna background dan elemen berdasarkan status isSelected
+        if (category.isSelected()) {
+            // Saat dipilih: background menjadi primary_color, teks dan ikon menjadi putih
+            holder.cardView.setCardBackgroundColor(holder.itemView.getContext().getResources().getColor(R.color.primary_colour));
+            holder.categoryName.setTextColor(holder.itemView.getContext().getResources().getColor(android.R.color.white));
+            holder.categoryIcon.setColorFilter(holder.itemView.getContext().getResources().getColor(android.R.color.white));
+        } else {
+            // Saat tidak dipilih: background menjadi putih, teks dan ikon menjadi default
+            holder.cardView.setCardBackgroundColor(holder.itemView.getContext().getResources().getColor(android.R.color.white));
+            holder.categoryName.setTextColor(holder.itemView.getContext().getResources().getColor(R.color.font_colour));
+            holder.categoryIcon.setColorFilter(null); // Hapus filter warna
+        }
+
+        // Listener untuk klik item
+        holder.itemView.setOnClickListener(v -> {
+            // Reset semua kategori lainnya agar tidak dipilih
+            for (Category cat : categoryList) {
+                cat.setSelected(false);
+            }
+            // Tandai kategori ini sebagai terpilih
+            category.setSelected(true);
+            // Notifikasi perubahan
+            notifyDataSetChanged();
+            // Beritahu listener klik
+            listener.onCategoryClick(category);
+        });
     }
+
 
 
     @Override
@@ -73,11 +96,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public static class CategoryViewHolder extends RecyclerView.ViewHolder {
         TextView categoryName;
         ImageView categoryIcon;
+        CardView cardView; // Tambahkan referensi CardView
 
         public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
-            categoryName = itemView.findViewById(R.id.categoryName); // Pastikan id sesuai dengan XML
-            categoryIcon = itemView.findViewById(R.id.categoryIcon); // Pastikan id sesuai dengan XML
+            cardView = itemView.findViewById(R.id.CategoryCardView); // Referensi CardView
+            categoryName = itemView.findViewById(R.id.categoryName);
+            categoryIcon = itemView.findViewById(R.id.categoryIcon);
         }
     }
 }

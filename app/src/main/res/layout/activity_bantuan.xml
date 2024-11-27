@@ -1,10 +1,42 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.BantuanActivity">
+    tools:context=".fragment.TiketFragment"
+    android:background="@color/white">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        android:background="@color/primary_colour"
+        android:id="@+id/view_tiket1"
+        />
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginLeft="25dp"
+        android:src="@drawable/icon_back2"
+        android:id="@+id/icon_back"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Bantuan"
+        android:fontFamily="@font/poppinssemibold"
+        android:textSize="18dp"
+        android:textColor="@color/white"
+        />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/view_home"
+        />
+
+</RelativeLayout>

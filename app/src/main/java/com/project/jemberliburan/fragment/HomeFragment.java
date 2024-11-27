@@ -10,20 +10,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 import com.project.jemberliburan.R;
-import com.project.jemberliburan.activity.BantuanActivity;
-import com.project.jemberliburan.activity.UlasanActivity;
+
+import com.project.jemberliburan.activity.SearchDestinasiActivity;
+import com.project.jemberliburan.activity.SearchFiturActivity;
+import com.project.jemberliburan.activity.TentangSayaActivity;
 import com.project.jemberliburan.adapter.DestinasiAdapter;
 import com.project.jemberliburan.adapter.FiturAdapter;
 import com.project.jemberliburan.adapter.ImageSliderAdapter;
 import com.project.jemberliburan.adapter.CategoryAdapter;
 import com.project.jemberliburan.adapter.TipAdapter; // Adapter untuk Tips Trip
 import com.project.jemberliburan.Model.Category;
-import com.project.jemberliburan.detail.DetailDestinasiActivity;
+
+import com.project.jemberliburan.activity.UlasanActivity;
+import com.project.jemberliburan.activity.BantuanActivity;
+import com.project.jemberliburan.activity.DestinasiActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -65,6 +71,15 @@ public class HomeFragment extends Fragment {
         ImageSliderAdapter adapter = new ImageSliderAdapter(requireContext(), images);
         viewPager.setAdapter(adapter);
 
+        CardView cariFiturCardView = view.findViewById(R.id.CariFiturCardView);
+        cariFiturCardView.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), SearchFiturActivity.class);
+
+            // Kirimkan data default untuk pencarian awal, jika diperlukan
+            intent.putExtra("feature_name", 0); // Contoh default
+            startActivity(intent);
+        });
+
         // Setup auto-scroll
         setupAutoScroll();
 
@@ -80,13 +95,14 @@ public class HomeFragment extends Fragment {
         recyclerViewDestinasi = view.findViewById(R.id.recyclerViewDestinasi);
         recyclerViewTipsTrip = view.findViewById(R.id.recyclerViewTipsTrip);
 
+
         fiturAdapter = new FiturAdapter(position -> {
             switch (position) {
                 case 0: // Jelajahi
-                    startActivity(new Intent(getContext(), DestinasiFragment.class));
+                    startActivity(new Intent(getContext(), SearchDestinasiActivity.class));
                     break;
                 case 1: // Profil Saya
-                    startActivity(new Intent(getContext(), ProfileFragment.class));
+                    startActivity(new Intent(getContext(), TentangSayaActivity.class));
                     break;
                 case 2: // Cek Tiket
                     startActivity(new Intent(getContext(), TiketFragment.class));
@@ -127,8 +143,6 @@ public class HomeFragment extends Fragment {
         categoryAdapter = new CategoryAdapter(categoryList, this::onCategorySelected);
         recyclerViewkategoriDestinasi.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         recyclerViewkategoriDestinasi.setAdapter(categoryAdapter);
-
-
         return view;
     }
 
@@ -149,13 +163,12 @@ public class HomeFragment extends Fragment {
     private List<Category> getCategoryList() {
         // Membuat daftar kategori
         List<Category> categories = new ArrayList<>();
-        categories.add(new Category("topdestinasi", R.drawable.icon_destinasi, true));
+        categories.add(new Category("topdestinasi", R.drawable.icon_topdestinasi, true));
         categories.add(new Category("Gunung", 0, false));
         categories.add(new Category("Pantai", 0, false)); // Tidak menampilkan ikon
         categories.add(new Category("Bukit", 0, false)); // Tidak menampilkan ikon
         return categories;
     }
-
 
 
     private void onCategorySelected(Category category) {
@@ -164,23 +177,23 @@ public class HomeFragment extends Fragment {
 
         if ("topdestinasi".equals(category.getName())) {
             destinasiList = Arrays.asList(
-                    new DestinasiAdapter.DestinasiItem("Pantai Papuma", R.drawable.img_papuma, "Jember, Jawa Timur", 4.9, DetailDestinasiActivity.class),
-                    new DestinasiAdapter.DestinasiItem("Rembangan", R.drawable.img_rembangan, "Jember, Jawa Timur", 4.8, DetailDestinasiActivity.class),
-                    new DestinasiAdapter.DestinasiItem("Gunung Gambir", R.drawable.img_gambir, "Jember, Jawa Timur", 4.8, DetailDestinasiActivity.class)
+                    new DestinasiAdapter.DestinasiItem("Pantai Papuma", R.drawable.img_papuma, "Jember, Jawa Timur", 4.9, DestinasiActivity.class),
+                    new DestinasiAdapter.DestinasiItem("Rembangan", R.drawable.img_rembangan, "Jember, Jawa Timur", 4.8, DestinasiActivity.class),
+                    new DestinasiAdapter.DestinasiItem("Gunung Gambir", R.drawable.img_gambir, "Jember, Jawa Timur", 4.8, DestinasiActivity.class)
             );
         } else if ("Gunung".equals(category.getName())) {
             destinasiList = Arrays.asList(
-                    new DestinasiAdapter.DestinasiItem("Gunung Gambir", R.drawable.img_gambir, "Jember, Jawa Timur", 4.8, DetailDestinasiActivity.class)
+                    new DestinasiAdapter.DestinasiItem("Gunung Gambir", R.drawable.img_gambir, "Jember, Jawa Timur", 4.8, DestinasiActivity.class)
             );
         }else if ("Pantai".equals(category.getName())) {
             destinasiList = Arrays.asList(
-                    new DestinasiAdapter.DestinasiItem("Pantai Papuma", R.drawable.img_papuma, "Jember, Jawa Timur", 4.9, DetailDestinasiActivity.class),
-                    new DestinasiAdapter.DestinasiItem("Pantai Watu Ulo", R.drawable.img_watuulo, "Jember, Jawa Timur", 4.7, DetailDestinasiActivity.class)
+                    new DestinasiAdapter.DestinasiItem("Pantai Papuma", R.drawable.img_papuma, "Jember, Jawa Timur", 4.9, DestinasiActivity.class),
+                    new DestinasiAdapter.DestinasiItem("Pantai Watu Ulo", R.drawable.img_watuulo, "Jember, Jawa Timur", 4.7, DestinasiActivity.class)
             );
         } else if ("Bukit".equals(category.getName())) {
             destinasiList = Arrays.asList(
-                    new DestinasiAdapter.DestinasiItem("Rembangan", R.drawable.img_rembangan, "Jember, Jawa Timur", 4.8, DetailDestinasiActivity.class),
-                    new DestinasiAdapter.DestinasiItem("Bukit SJ88", R.drawable.img_sj88, "Jember, Jawa Timur", 4.7, DetailDestinasiActivity.class)
+                    new DestinasiAdapter.DestinasiItem("Rembangan", R.drawable.img_rembangan, "Jember, Jawa Timur", 4.8, DestinasiActivity.class),
+                    new DestinasiAdapter.DestinasiItem("Bukit SJ88", R.drawable.img_sj88, "Jember, Jawa Timur", 4.7, DestinasiActivity.class)
             );
         } else {
             // Default list jika tidak ada kategori yang cocok
@@ -198,26 +211,27 @@ public class HomeFragment extends Fragment {
 
 
     private void animateCategoryIcon(Category category) {
-        // Temukan posisi kategori berdasarkan nama
+        // Cari posisi kategori yang sesuai
         int position = categoryList.indexOf(category);
         if (position >= 0 && position < recyclerViewkategoriDestinasi.getChildCount()) {
-            // Ambil tampilan kategori yang sesuai
+            // Ambil tampilan kategori di posisi tertentu
             View categoryView = recyclerViewkategoriDestinasi.getChildAt(position);
 
-            // Periksa jika tampilan tidak null
             if (categoryView != null) {
-                // Reset properti rotasi
+                // Reset rotasi sebelumnya
                 categoryView.setRotationY(0);
 
-                // Jalankan animasi rotasi
+                // Jalankan animasi
                 categoryView.animate()
-                        .rotationY(360)  // Rotasi 360 derajat
-                        .setDuration(500) // Durasi animasi 500ms
+                        .rotationY(360) // Rotasi 360 derajat
+                        .setDuration(500) // Durasi animasi
+                        .withEndAction(() -> {
+                            // Tambahkan tindakan setelah animasi selesai jika diperlukan
+                        })
                         .start();
             }
         }
     }
-
 
 
 

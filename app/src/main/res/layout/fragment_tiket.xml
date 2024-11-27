@@ -1,4 +1,3 @@
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,13 +11,23 @@
         android:background="@color/primary_colour"
         android:id="@+id/view_tiket1"
         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Tiket"
+        android:fontFamily="@font/poppinssemibold"
+        android:textSize="18dp"
+        android:textColor="@color/white"
+        />
+
     <View
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginTop="100dp"
         android:background="@drawable/view_home"
         />
-
-
 
 </RelativeLayout>

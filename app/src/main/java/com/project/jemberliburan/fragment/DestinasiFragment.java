@@ -7,14 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.project.jemberliburan.adapter.CategoryAdapter;
 import com.project.jemberliburan.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DestinasiFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class DestinasiFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match

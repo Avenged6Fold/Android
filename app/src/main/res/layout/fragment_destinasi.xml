@@ -12,13 +12,46 @@
         android:background="@color/primary_colour"
         android:id="@+id/view_tiket1"
         />
-    <View
+
+    <TextView
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginTop="100dp"
-        android:background="@drawable/view_home"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Destinasi"
+        android:fontFamily="@font/poppinssemibold"
+        android:textSize="18dp"
+        android:textColor="@color/white"
         />
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp"
+        android:padding="10dp"
+        android:background="@drawable/view_home"
+        >
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewKategoriDestinasi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewDestinasi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/recyclerViewKategoriDestinasi"
+                android:layout_marginTop="5dp"
+                />
+
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>

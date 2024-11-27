@@ -1,65 +1,54 @@
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    tools:context=".fragment.TiketFragment"
+    android:background="@color/white">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        android:background="@color/primary_colour"
+        android:id="@+id/view_tiket1"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:padding="16dp">
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Profile"
+        android:fontFamily="@font/poppinssemibold"
+        android:textSize="18dp"
+        android:textColor="@color/white"
+        />
 
-        <!-- Informasi Akun -->
-        <TextView
-            android:id="@+id/txt_account_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nama Pengguna: John Doe\nEmail: johndoe@example.com"
-            android:textSize="16sp"
-            android:textColor="@android:color/black"
-            android:gravity="center"
-            android:paddingBottom="20dp"/>
+    <androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="45dp"
+        card_view:cardElevation="4dp"
+        card_view:cardBackgroundColor="@color/white"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="60dp"
+        android:id="@+id/CariDestinasiCardView"
+        >
 
-        <!-- Tombol Riwayat Pesanan -->
-        <Button
-            android:id="@+id/btn_order_history"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Riwayat Pesanan"
-            android:padding="10dp"
-            android:layout_marginBottom="10dp"/>
+        <ImageView
+            android:id="@+id/searchInput"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/icon_addimage"/>
+    </androidx.cardview.widget.CardView>
 
-        <!-- Switch Tema -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:padding="10dp">
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/view_home"
+        />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tema Gelap"
-                android:textSize="16sp"
-                android:textColor="@android:color/black"/>
-
-            <Switch
-                android:id="@+id/switch_theme"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"/>
-        </LinearLayout>
-
-        <!-- Tombol Logout -->
-        <Button
-            android:id="@+id/btn_logout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Logout"
-            android:padding="10dp"
-            android:layout_marginTop="20dp"/>
-    </LinearLayout>
-</ScrollView>
+</RelativeLayout>

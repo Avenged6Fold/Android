@@ -18,10 +18,25 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".detail.DetailDestinasiActivity"
+            android:name=".activity.FavoritSayaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SearchDestinasiActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.TentangSayaActivity"
             android:exported="false" />
         <activity
             android:name=".activity.BantuanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SearchFiturActivity"
+            android:exported="false" />
+        <activity
+            android:name=".adapter.SearchFiturAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".activity.DestinasiActivity"
             android:exported="false" />
         <activity
             android:name=".activity.UlasanActivity"
@@ -57,7 +72,7 @@
             android:name=".activity.WellcomeActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.LupapasswordActivity"
+            android:name=".activity.ForgotPasswordActivity"
             android:exported="false" />
         <activity
             android:name=".activity.RegisterActivity"
