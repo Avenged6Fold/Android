@@ -50,7 +50,7 @@
         card_view:cardBackgroundColor="@color/white"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
-        android:id="@+id/CariDestinasiCardView"
+        android:id="@+id/AddImageCardView"
         >
 
         <ImageView
@@ -64,7 +64,7 @@
     <EditText
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_below="@id/CariDestinasiCardView"
+        android:layout_below="@id/AddImageCardView"
         android:layout_marginTop="100dp"
         android:layout_centerHorizontal="true"
         android:backgroundTint="@color/primary_colour"

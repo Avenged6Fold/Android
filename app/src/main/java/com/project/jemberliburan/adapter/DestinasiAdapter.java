@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.project.jemberliburan.R;
+import com.project.jemberliburan.activity.DetailDestinasiActivity;
+
 import java.util.List;
 
 public class DestinasiAdapter extends RecyclerView.Adapter<DestinasiAdapter.ViewHolder> {
@@ -30,6 +32,11 @@ public class DestinasiAdapter extends RecyclerView.Adapter<DestinasiAdapter.View
         return new ViewHolder(view);
     }
 
+    public void updateList(List<DestinasiItem> newList) {
+        this.destinasiList = newList;
+        notifyDataSetChanged();
+    }
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DestinasiItem item = destinasiList.get(position);
@@ -38,13 +45,14 @@ public class DestinasiAdapter extends RecyclerView.Adapter<DestinasiAdapter.View
         holder.addressTextView.setText(item.getAddress()); // Set alamat
         holder.ratingTextView.setText("⭐ " + item.getRating()); // Set rating
 
-
         // Set klik listener untuk card
         holder.cardView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, item.getDestinationActivity());
+            Intent intent = new Intent(context, DetailDestinasiActivity.class);
+            intent.putExtra("name", item.getName()); // Hanya mengirim nama destinasi
             context.startActivity(intent);
         });
     }
+
 
     @Override
     public int getItemCount() {
