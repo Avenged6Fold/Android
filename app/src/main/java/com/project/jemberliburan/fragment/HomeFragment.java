@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 import com.project.jemberliburan.R;
 
+import com.project.jemberliburan.activity.DetailDestinasiActivity;
+import com.project.jemberliburan.activity.DetailTipActivity;
 import com.project.jemberliburan.activity.SearchDestinasiActivity;
 import com.project.jemberliburan.activity.SearchFiturActivity;
 import com.project.jemberliburan.activity.TentangSayaActivity;
@@ -29,7 +31,6 @@ import com.project.jemberliburan.Model.Category;
 
 import com.project.jemberliburan.activity.UlasanActivity;
 import com.project.jemberliburan.activity.BantuanActivity;
-import com.project.jemberliburan.activity.DestinasiActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -124,19 +125,32 @@ public class HomeFragment extends Fragment {
         tipAdapter = new TipAdapter(position -> {
             switch (position) {
                 case 0: // TipsTrip1
-                    startActivity(new Intent(getContext(), UlasanActivity.class));
+                    // Pindah ke DetailTipActivity dengan tip_id = 0
+                    Intent intent1 = new Intent(getContext(), DetailTipActivity.class);
+                    intent1.putExtra("tip_id", 0); // ID untuk TipsTrip1
+                    startActivity(intent1);
                     break;
                 case 1: // TipsTrip2
-                    startActivity(new Intent(getContext(), UlasanActivity.class));
+                    // Pindah ke DetailTipActivity dengan tip_id = 1
+                    Intent intent2 = new Intent(getContext(), DetailTipActivity.class);
+                    intent2.putExtra("tip_id", 1); // ID untuk TipsTrip2
+                    startActivity(intent2);
                     break;
                 case 2: // TipsTrip3
-                    startActivity(new Intent(getContext(), UlasanActivity.class));
+                    // Pindah ke DetailTipActivity dengan tip_id = 2
+                    Intent intent3 = new Intent(getContext(), DetailTipActivity.class);
+                    intent3.putExtra("tip_id", 2); // ID untuk TipsTrip3
+                    startActivity(intent3);
                     break;
-
+                default:
+                    // Tangani posisi lain jika diperlukan
+                    break;
             }
         });
+
         recyclerViewTipsTrip.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         recyclerViewTipsTrip.setAdapter(tipAdapter);
+
 
         // Set up kategori RecyclerView
         categoryList = getCategoryList();
@@ -172,67 +186,46 @@ public class HomeFragment extends Fragment {
 
 
     private void onCategorySelected(Category category) {
-        // Memperbarui daftar destinasi berdasarkan kategori yang dipilih
         List<DestinasiAdapter.DestinasiItem> destinasiList;
 
-        if ("topdestinasi".equals(category.getName())) {
-            destinasiList = Arrays.asList(
-                    new DestinasiAdapter.DestinasiItem("Pantai Papuma", R.drawable.img_papuma, "Jember, Jawa Timur", 4.9, DestinasiActivity.class),
-                    new DestinasiAdapter.DestinasiItem("Rembangan", R.drawable.img_rembangan, "Jember, Jawa Timur", 4.8, DestinasiActivity.class),
-                    new DestinasiAdapter.DestinasiItem("Gunung Gambir", R.drawable.img_gambir, "Jember, Jawa Timur", 4.8, DestinasiActivity.class)
-            );
-        } else if ("Gunung".equals(category.getName())) {
-            destinasiList = Arrays.asList(
-                    new DestinasiAdapter.DestinasiItem("Gunung Gambir", R.drawable.img_gambir, "Jember, Jawa Timur", 4.8, DestinasiActivity.class)
-            );
-        }else if ("Pantai".equals(category.getName())) {
-            destinasiList = Arrays.asList(
-                    new DestinasiAdapter.DestinasiItem("Pantai Papuma", R.drawable.img_papuma, "Jember, Jawa Timur", 4.9, DestinasiActivity.class),
-                    new DestinasiAdapter.DestinasiItem("Pantai Watu Ulo", R.drawable.img_watuulo, "Jember, Jawa Timur", 4.7, DestinasiActivity.class)
-            );
-        } else if ("Bukit".equals(category.getName())) {
-            destinasiList = Arrays.asList(
-                    new DestinasiAdapter.DestinasiItem("Rembangan", R.drawable.img_rembangan, "Jember, Jawa Timur", 4.8, DestinasiActivity.class),
-                    new DestinasiAdapter.DestinasiItem("Bukit SJ88", R.drawable.img_sj88, "Jember, Jawa Timur", 4.7, DestinasiActivity.class)
-            );
-        } else {
-            // Default list jika tidak ada kategori yang cocok
-            destinasiList = new ArrayList<>();
+        switch (category.getName()) {
+            case "topdestinasi":
+                destinasiList = Arrays.asList(
+                        new DestinasiAdapter.DestinasiItem("Pantai Papuma", R.drawable.img_papuma, "Wuluhan, Jember", 4.9, DetailDestinasiActivity.class),
+                        new DestinasiAdapter.DestinasiItem("Rembangan", R.drawable.img_rembangan, "Arjasa, Jember", 4.8, DetailDestinasiActivity.class),
+                        new DestinasiAdapter.DestinasiItem("Gunung Gambir", R.drawable.img_gambir, "Sumberbaru, jember", 4.8, DetailDestinasiActivity.class)
+                );
+                break;
+
+            case "Gunung":
+                destinasiList = Arrays.asList(
+                        new DestinasiAdapter.DestinasiItem("Gunung Gambir", R.drawable.img_gambir, "Sumberbaru, jember", 4.8, DetailDestinasiActivity.class)
+                );
+                break;
+
+            case "Pantai":
+                destinasiList = Arrays.asList(
+                        new DestinasiAdapter.DestinasiItem("Pantai Papuma", R.drawable.img_papuma, "Wuluhan, Jember", 4.9, DetailDestinasiActivity.class),
+                        new DestinasiAdapter.DestinasiItem("Pantai Watu Ulo", R.drawable.img_watuulo, "Ambulu, Jember", 4.8, DetailDestinasiActivity.class)
+                );
+                break;
+
+            case "Bukit":
+                destinasiList = Arrays.asList(
+                        new DestinasiAdapter.DestinasiItem("Rembangan", R.drawable.img_rembangan, "Arjasa, Jember", 4.8, DetailDestinasiActivity.class),
+                        new DestinasiAdapter.DestinasiItem("Bukit SJ88", R.drawable.img_sj88, "Wuluhan, Jember", 4.8, DetailDestinasiActivity.class)
+                );
+                break;
+
+            default:
+                destinasiList = new ArrayList<>();
+                break;
         }
 
-        // Set adapter baru untuk RecyclerView destinasi
         DestinasiAdapter destinasiAdapter = new DestinasiAdapter(requireContext(), destinasiList);
         recyclerViewDestinasi.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         recyclerViewDestinasi.setAdapter(destinasiAdapter);
-
-        // Animasi untuk kategori (opsional)
-        animateCategoryIcon(category);
     }
-
-
-    private void animateCategoryIcon(Category category) {
-        // Cari posisi kategori yang sesuai
-        int position = categoryList.indexOf(category);
-        if (position >= 0 && position < recyclerViewkategoriDestinasi.getChildCount()) {
-            // Ambil tampilan kategori di posisi tertentu
-            View categoryView = recyclerViewkategoriDestinasi.getChildAt(position);
-
-            if (categoryView != null) {
-                // Reset rotasi sebelumnya
-                categoryView.setRotationY(0);
-
-                // Jalankan animasi
-                categoryView.animate()
-                        .rotationY(360) // Rotasi 360 derajat
-                        .setDuration(500) // Durasi animasi
-                        .withEndAction(() -> {
-                            // Tambahkan tindakan setelah animasi selesai jika diperlukan
-                        })
-                        .start();
-            }
-        }
-    }
-
 
 
     @Override

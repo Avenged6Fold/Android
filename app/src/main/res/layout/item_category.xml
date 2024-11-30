@@ -19,7 +19,8 @@
             android:id="@+id/categoryIcon"
             android:layout_width="28dp"
             android:layout_height="28dp"
-            android:visibility="gone" /> <!-- Default disembunyikan -->
+            android:visibility="gone"
+            /> <!-- Default disembunyikan -->
 
         <TextView
             android:id="@+id/categoryName"

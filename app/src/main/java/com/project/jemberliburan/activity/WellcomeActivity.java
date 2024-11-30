@@ -17,6 +17,7 @@ public class WellcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
 
         // Periksa status login pengguna
         SharedPreferences preferences = getSharedPreferences("login_prefs", MODE_PRIVATE);

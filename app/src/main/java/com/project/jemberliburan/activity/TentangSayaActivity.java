@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.project.jemberliburan.R;
@@ -17,20 +18,13 @@ public class TentangSayaActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_tentang_saya);
 
         // Inisialisasi komponen
-        icon_back = findViewById(R.id.icon_back);
+        ImageView backButton = findViewById(R.id.icon_back);
 
         // Tambahkan listener untuk icon_back
-        icon_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Pindah ke halaman utama (MainActivity atau halaman lain)
-                Intent intent = new Intent(TentangSayaActivity.this, HomeFragment.class);
-                startActivity(intent);
-                finish(); // Opsional, jika Anda ingin menutup aktivitas saat ini
-            }
-        });
+        backButton.setOnClickListener(v -> finish());
     }
 }

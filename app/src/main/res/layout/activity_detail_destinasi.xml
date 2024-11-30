@@ -1,0 +1,93 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/imageViewDetail"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:scaleType="centerCrop" />
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginLeft="25dp"
+        android:src="@drawable/icon_back2"
+        android:id="@+id/icon_back"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/view_home"
+        android:layout_marginTop="230dp"
+        android:id="@+id/view_detailtip"
+        />
+
+    <TextView
+        android:id="@+id/textViewNameDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@+id/imageViewDetail"
+        android:fontFamily="@font/poppinsmedium"
+        android:textSize="32dp"
+        android:textColor="@color/black"/>
+
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="27dp"
+        android:layout_below="@+id/textViewNameDetail"
+        android:src="@drawable/icon_lokasi"
+        android:layout_marginLeft="20dp"
+        android:id="@+id/icon_lokasi"
+        />
+
+    <TextView
+        android:id="@+id/textViewLocationDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/icon_lokasi"
+        android:layout_marginLeft="28dp"
+        android:layout_below="@+id/textViewNameDetail"
+        android:fontFamily="@font/poppinsregular"
+        android:textSize="20dp"
+        android:textColor="@color/font_colour"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="222dp"
+        android:layout_marginRight="30dp"
+        android:src="@drawable/icon_favoritsaya"
+        />
+
+    <TextView
+        android:id="@+id/textViewRatingDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@+id/textViewLocationDetail"
+        android:fontFamily="@font/poppinsregular"
+        android:layout_marginTop="5dp"
+        android:textSize="18dp"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/textViewDeskripsiDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/textViewRatingDetail"
+        android:fontFamily="@font/poppinsregular"
+        android:layout_marginTop="5dp"
+        android:textSize="18dp"
+        android:textColor="@color/font_colour"/>
+
+</RelativeLayout>

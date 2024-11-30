@@ -4,19 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.project.jemberliburan.R;
 import com.project.jemberliburan.adapter.SearchFiturAdapter;
-import com.project.jemberliburan.fragment.HomeFragment;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,12 +31,16 @@ public class SearchFiturActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_search_fitur);
 
         // Inisialisasi View
         searchInput = findViewById(R.id.searchInput);
         recyclerViewSearchResults = findViewById(R.id.recyclerViewSearchResults);
-        icon_back = findViewById(R.id.icon_back);
+        ImageView backButton = findViewById(R.id.icon_back);
+
+        // Tambahkan listener untuk icon_back
+        backButton.setOnClickListener(v -> finish());
 
         // Daftar semua fitur (bisa diambil dari database, API, dll.)
         allFeatures = getAllFeatures();
@@ -73,17 +75,6 @@ public class SearchFiturActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 // Tidak diperlukan saat ini
-            }
-        });
-
-        // Tambahkan listener untuk tombol kembali
-        icon_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Pindah ke halaman utama (MainActivity atau halaman lain)
-                Intent intent = new Intent(SearchFiturActivity.this, HomeFragment.class);
-                startActivity(intent);
-                finish(); // Opsional, jika Anda ingin menutup aktivitas saat ini
             }
         });
     }
