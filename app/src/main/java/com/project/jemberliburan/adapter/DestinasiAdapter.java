@@ -83,14 +83,13 @@ public class DestinasiAdapter extends RecyclerView.Adapter<DestinasiAdapter.View
         private int imageResId;
         private String address;  // Tambahkan properti alamat
         private double rating;   // Tambahkan properti rating
-        private Class<?> destinationActivity;
+
 
         public DestinasiItem(String name, int imageResId, String address, double rating, Class<?> destinationActivity) {
             this.name = name;
             this.imageResId = imageResId;
             this.address = address;
             this.rating = rating;
-            this.destinationActivity = destinationActivity;
         }
 
         public String getName() {
@@ -109,9 +108,5 @@ public class DestinasiAdapter extends RecyclerView.Adapter<DestinasiAdapter.View
             return rating;
         }
 
-        public Class<?> getDestinationActivity() {
-            return destinationActivity;
-        }
     }
-
 }

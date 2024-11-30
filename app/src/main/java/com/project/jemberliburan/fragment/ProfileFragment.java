@@ -1,14 +1,59 @@
 package com.project.jemberliburan.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
-import androidx.activity.EdgeToEdge;
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.project.jemberliburan.R;
+import com.project.jemberliburan.activity.TentangSayaActivity;
+import com.project.jemberliburan.adapter.ProfileAdapter;
+import com.project.jemberliburan.Model.Profile;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProfileFragment extends Fragment {
 
+    private RecyclerView recyclerViewProfile;
+    private ProfileAdapter profileAdapter;
+    private List<Profile> profileList;
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // Menghubungkan fragment dengan layout XML
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        // Inisialisasi RecyclerView
+        recyclerViewProfile = view.findViewById(R.id.recyclerViewProfile);
+        recyclerViewProfile.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Inisialisasi daftar data
+        profileList = new ArrayList<>();
+        profileList.add(new Profile(R.drawable.icon_favoritprofile, "Favorit Saya", R.drawable.icon_actionprofile));
+        profileList.add(new Profile(R.drawable.icon_ulasanprofile, "Ulasan", R.drawable.icon_actionprofile));
+        profileList.add(new Profile(R.drawable.icon_bantuanprofile, "Bantuan", R.drawable.icon_actionprofile));
+        profileList.add(new Profile(R.drawable.icon_logoutprofile, "Log Out", R.drawable.icon_actionprofile));
+
+        // Menghubungkan adapter dengan RecyclerView
+        profileAdapter = new ProfileAdapter(requireContext(), profileList);
+        recyclerViewProfile.setAdapter(profileAdapter);
+
+        // Menambahkan listener klik pada logoProfile
+        ImageView logoProfile = view.findViewById(R.id.logoProfile);
+        logoProfile.setOnClickListener(v -> {
+            // Pindah ke TentangSayaActivity
+            Intent intent = new Intent(requireContext(), TentangSayaActivity.class);
+            startActivity(intent);
+        });
+
+        return view;
+    }
 }
