@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,15 +41,15 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         emailEditText = findViewById(R.id.emailEditText);
         sendVerificationButton = findViewById(R.id.sendVerificationButton);
 
-        // Tombol kembali untuk kembali ke halaman sebelumnya
-        ImageView backButton = findViewById(R.id.backButton);
-        backButton.setOnClickListener(v -> finish());
-
         // Tombol kirim verifikasi
         sendVerificationButton.setOnClickListener(v -> {
             String email = emailEditText.getText().toString().trim();
+
+            // Validasi email lebih kuat
             if (email.isEmpty()) {
                 Toast.makeText(this, "Email tidak boleh kosong", Toast.LENGTH_SHORT).show();
+            } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                Toast.makeText(this, "Format email tidak valid.", Toast.LENGTH_SHORT).show();
             } else if (!canSendRequest) {
                 Toast.makeText(this, "Harap tunggu sebelum mengirim ulang kode verifikasi.", Toast.LENGTH_SHORT).show();
             } else {
@@ -72,9 +72,15 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 response -> {
                     Log.d(TAG, "Server response: " + response);
-                    handleSuccessResponse(response, email);
+                    try {
+                        JSONObject jsonResponse = new JSONObject(response);
+                        handleSuccessResponse(jsonResponse, email);
+                    } catch (JSONException e) {
+                        Log.e(TAG, "JSON parsing error: " + e.getMessage());
+                        Toast.makeText(this, "Kesalahan parsing data dari server.", Toast.LENGTH_SHORT).show();
+                    }
                 },
-                error -> handleVolleyError(error)
+                this::handleVolleyError
         ) {
             @Override
             protected Map<String, String> getParams() {
@@ -107,23 +113,22 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     /**
      * Tangani respons sukses dari server
      */
-    private void handleSuccessResponse(String response, String email) {
-        try {
-            JSONObject jsonResponse = new JSONObject(response);
-            String status = jsonResponse.optString("status");
-            String message = jsonResponse.optString("message");
+    private void handleSuccessResponse(JSONObject jsonResponse, String email) {
+        String status = jsonResponse.optString("status");
+        String message = jsonResponse.optString("message");
 
-            if ("success".equalsIgnoreCase(status)) {
-                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this, VerificationCodeActivity.class);
-                intent.putExtra("email", email);
-                startActivity(intent);
-            } else {
-                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-            }
-        } catch (JSONException e) {
-            Log.e(TAG, "JSON parsing error: " + e.getMessage());
-            Toast.makeText(this, "Kesalahan parsing data.", Toast.LENGTH_SHORT).show();
+        if ("success".equalsIgnoreCase(status)) {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, VerificationCodeActivity.class);
+            intent.putExtra("email", email);
+            startActivity(intent);
+        } else if ("error".equalsIgnoreCase(status) && message.contains("Email tidak terdaftar")) {
+            // Tampilkan pesan dan arahkan ke halaman registrasi
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, RegisterActivity.class); // Ganti dengan activity registrasi Anda
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -134,6 +139,11 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         if (error.networkResponse != null && error.networkResponse.statusCode == 429) {
             Log.w(TAG, "Too Many Requests. Waiting before retry...");
             Toast.makeText(this, "Terlalu banyak permintaan. Tunggu sebelum mencoba lagi.", Toast.LENGTH_SHORT).show();
+        } else if (error.networkResponse != null && error.networkResponse.statusCode == 404) {
+            // Jika error 404 dari server
+            Toast.makeText(this, "Email tidak terdaftar. Silakan daftar terlebih dahulu.", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, RegisterActivity.class); // Ganti dengan activity registrasi Anda
+            startActivity(intent);
         } else {
             Log.e(TAG, "Error: " + error.getMessage());
             Toast.makeText(this, "Kesalahan jaringan: " + error.getMessage(), Toast.LENGTH_SHORT).show();

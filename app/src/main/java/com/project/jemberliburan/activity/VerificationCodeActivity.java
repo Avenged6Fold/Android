@@ -2,13 +2,11 @@ package com.project.jemberliburan.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,14 +25,10 @@ import org.json.JSONObject;
 public class VerificationCodeActivity extends AppCompatActivity {
 
     private static final String TAG = "VerificationCodeActivity";
-    private static final long TIMER_DURATION = 60000; // 1 menit dalam milidetik
-
     private EditText inputField1, inputField2, inputField3, inputField4, inputField5, inputField6;
     private Button verifyCodeButton;
-    private TextView resendCodeText;
     private String email; // Simpan email untuk keperluan resend kode
-    private CountDownTimer countDownTimer;
-    private boolean isWaiting = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,16 +55,7 @@ public class VerificationCodeActivity extends AppCompatActivity {
             if (verificationCode.length() < 6) {
                 Toast.makeText(this, "Kode verifikasi tidak valid", Toast.LENGTH_SHORT).show();
             } else {
-                verifyCode(verificationCode);
-            }
-        });
-
-        // Tombol kirim ulang kode
-        resendCodeText.setOnClickListener(v -> {
-            if (!isWaiting) {
-                clearInputs();
-                resendVerificationCode();
-                startTimer();
+                verifyCode(verificationCode); // Pemanggilan metode verifyCode
             }
         });
     }
@@ -86,7 +71,9 @@ public class VerificationCodeActivity extends AppCompatActivity {
         inputField5 = findViewById(R.id.inputField5);
         inputField6 = findViewById(R.id.inputField6);
         verifyCodeButton = findViewById(R.id.verifyCodeButton);
-        resendCodeText = findViewById(R.id.resendCodeText);
+
+
+
 
         setupTextWatchers();
     }
@@ -103,9 +90,7 @@ public class VerificationCodeActivity extends AppCompatActivity {
                 inputField6.getText().toString().trim();
     }
 
-    /**
-     * Membersihkan semua input EditText
-     */
+
     private void clearInputs() {
         inputField1.setText("");
         inputField2.setText("");
@@ -166,7 +151,6 @@ public class VerificationCodeActivity extends AppCompatActivity {
 
                         if (success) {
                             Toast.makeText(this, "Kode berhasil diverifikasi!", Toast.LENGTH_SHORT).show();
-                            // Arahkan ke halaman reset password
                             Intent intent = new Intent(this, ResetPasswordActivity.class);
                             intent.putExtra("email", email);
                             startActivity(intent);
@@ -186,64 +170,6 @@ public class VerificationCodeActivity extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
-    /**
-     * Kirim ulang kode verifikasi melalui server
-     */
-    private void resendVerificationCode() {
-        String url = Db_Contract.urlSendVerificationCode; // URL untuk endpoint send-verification-code.php
-        JSONObject params = new JSONObject();
-        try {
-            params.put("email", email);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                Request.Method.POST, url, params,
-                response -> {
-                    try {
-                        String message = response.getString("message");
-                        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-                        resendCodeText.setText("Kode Terkirim");
-                        new android.os.Handler().postDelayed(() -> resendCodeText.setText("Kirim Ulang Kode"), 3000);
-                    } catch (JSONException e) {
-                        Log.e(TAG, "JSON parsing error: " + e.getMessage());
-                        Toast.makeText(this, "Kesalahan parsing data.", Toast.LENGTH_SHORT).show();
-                    }
-                },
-                this::handleVolleyError
-        );
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(jsonObjectRequest);
-    }
-
-    /**
-     * Timer untuk membatasi pengiriman ulang kode
-     */
-    private void startTimer() {
-        isWaiting = true;
-
-        countDownTimer = new CountDownTimer(TIMER_DURATION, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                long secondsLeft = millisUntilFinished / 1000;
-                resendCodeText.setText("Tunggu " + secondsLeft + " detik...");
-            }
-
-            @Override
-            public void onFinish() {
-                isWaiting = false;
-                resendCodeText.setClickable(true);
-                resendCodeText.setText("Kirim Ulang Kode");
-            }
-        };
-        countDownTimer.start();
-    }
-
-    /**
-     * Tangani error dari server
-     */
     private void handleVolleyError(VolleyError error) {
         if (error.networkResponse != null && error.networkResponse.data != null) {
             try {
@@ -263,8 +189,7 @@ public class VerificationCodeActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (countDownTimer != null) {
-            countDownTimer.cancel();
+
         }
     }
-}
+
