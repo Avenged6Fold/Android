@@ -2,6 +2,7 @@ package com.project.jemberliburan.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,7 +60,16 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
                     context.startActivity(new Intent(context, BantuanActivity.class));
                     break;
                 case "Log Out":
-                    context.startActivity(new Intent(context, LoginActivity.class));
+                    // Hapus status login dari SharedPreferences
+                    SharedPreferences preferences = context.getSharedPreferences("login_prefs", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putBoolean("isLoggedIn", false);
+                    editor.apply();
+
+                    // Arahkan kembali ke halaman login
+                    Intent intent = new Intent(context, LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    context.startActivity(intent);
                     break;
                 default:
                     break;

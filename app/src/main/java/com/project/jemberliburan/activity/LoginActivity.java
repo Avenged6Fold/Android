@@ -24,6 +24,9 @@ import com.android.volley.toolbox.Volley;
 import com.project.jemberliburan.Connection.Db_Contract;
 import com.project.jemberliburan.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -80,38 +83,52 @@ public class LoginActivity extends AppCompatActivity {
                         // Buat POST request
                         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
                             Log.d("LoginResponse", "Response: " + response);
-                            if (response.equals("Selamat Datang")) {
-                                Toast.makeText(LoginActivity.this, "Login Berhasil!", Toast.LENGTH_SHORT).show();
 
-                                // Simpan status login dan username di SharedPreferences
-                                SharedPreferences.Editor editor = preferences.edit();
-                                editor.putBoolean("isLoggedIn", true);
-                                editor.putString("Username", username); // Simpan username
-                                editor.apply();
+                            try {
+                                // Mengambil data JSON dari response
+                                JSONObject jsonResponse = new JSONObject(response);
+                                String status = jsonResponse.getString("status");
 
-                                // Intent untuk NavigasiActivity
-                                Intent intent = new Intent(LoginActivity.this, NavigasiActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(intent);
-                                finish();
-                            } else {
-                                Toast.makeText(LoginActivity.this, "Login Gagal! Username atau Password salah.", Toast.LENGTH_SHORT).show();
+                                if (status.equals("success")) {
+                                    // Ambil email dari response
+                                    String email = jsonResponse.getString("email");
+
+                                    // Simpan data username dan email di SharedPreferences
+                                    SharedPreferences preferences = getSharedPreferences("login_prefs", Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = preferences.edit();
+                                    editor.putBoolean("isLoggedIn", true);
+                                    editor.putString("Username", username); // Menyimpan username
+                                    editor.putString("Email", email); // Menyimpan email
+                                    editor.apply();
+
+                                    // Pindah ke halaman utama setelah login
+                                    Intent intent = new Intent(LoginActivity.this, NavigasiActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    // Menampilkan pesan kesalahan
+                                    Toast.makeText(LoginActivity.this, jsonResponse.getString("message"), Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Toast.makeText(LoginActivity.this, "Terjadi kesalahan dalam memproses data", Toast.LENGTH_SHORT).show();
                             }
                         }, error -> {
-                            Log.e("Volley Error", error.toString());
+                            Log.e("VolleyError", error.toString());
                             Toast.makeText(LoginActivity.this, "Terjadi kesalahan koneksi: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                         }) {
                             @Override
                             protected Map<String, String> getParams() {
+                                // Mengirimkan username dan password ke server
                                 Map<String, String> params = new HashMap<>();
                                 params.put("username", username);
                                 params.put("password", password);
 
-                                Log.d("LoginParams", "Params: " + params.toString());
-
                                 return params;
                             }
                         };
+
 
                         stringRequest.setRetryPolicy(new DefaultRetryPolicy(
                                 10000,
