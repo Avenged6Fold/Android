@@ -36,7 +36,7 @@
             android:name=".adapter.SearchFiturAdapter"
             android:exported="false" />
         <activity
-            android:name=".activity.DestinasiActivity"
+            android:name=".activity.DetailDestinasiActivity"
             android:exported="false" />
         <activity
             android:name=".activity.UlasanActivity"
@@ -73,6 +73,12 @@
             android:exported="true" />
         <activity
             android:name=".activity.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.VerificationCodeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ResetPasswordActivity"
             android:exported="false" />
         <activity
             android:name=".activity.RegisterActivity"
