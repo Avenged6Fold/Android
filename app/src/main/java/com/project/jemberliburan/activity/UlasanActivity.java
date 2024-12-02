@@ -1,6 +1,7 @@
 package com.project.jemberliburan.activity;
 
 import android.os.Bundle;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,5 +18,9 @@ public class UlasanActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_ulasan);
+        ImageView backButton = findViewById(R.id.icon_back);
+
+        // Tambahkan listener untuk icon_back
+        backButton.setOnClickListener(v -> finish());
     }
 }

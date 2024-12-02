@@ -7,7 +7,7 @@
 
     <View
         android:layout_width="wrap_content"
-        android:layout_height="120dp"
+        android:layout_height="140dp"
         android:background="@color/primary_colour"
         android:id="@+id/view_tiket1"
         />
@@ -15,7 +15,7 @@
     <ImageView
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="44dp"
         android:layout_marginLeft="25dp"
         android:src="@drawable/icon_back2"
         android:id="@+id/icon_back"
@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:text="Bantuan"
         android:fontFamily="@font/poppinssemibold"
         android:textSize="18dp"
@@ -35,7 +35,7 @@
     <View
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="110dp"
         android:background="@drawable/view_home"
         />
 

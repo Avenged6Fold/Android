@@ -17,8 +17,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 import com.project.jemberliburan.R;
 
+import com.project.jemberliburan.activity.CekTiketActivity;
 import com.project.jemberliburan.activity.DetailDestinasiActivity;
 import com.project.jemberliburan.activity.DetailTipActivity;
+import com.project.jemberliburan.activity.RiwayatTiketActivity;
 import com.project.jemberliburan.activity.SearchDestinasiActivity;
 import com.project.jemberliburan.activity.SearchFiturActivity;
 import com.project.jemberliburan.activity.TentangSayaActivity;
@@ -106,10 +108,10 @@ public class HomeFragment extends Fragment {
                     startActivity(new Intent(getContext(), TentangSayaActivity.class));
                     break;
                 case 2: // Cek Tiket
-                    startActivity(new Intent(getContext(), TiketFragment.class));
+                    startActivity(new Intent(getContext(), CekTiketActivity.class));
                     break;
                 case 3: // Riwayat
-                    startActivity(new Intent(getContext(), TiketFragment.class));
+                    startActivity(new Intent(getContext(), RiwayatTiketActivity.class));
                     break;
                 case 4: // Ulasan
                     startActivity(new Intent(getContext(), UlasanActivity.class));

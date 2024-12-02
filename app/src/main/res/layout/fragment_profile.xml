@@ -83,7 +83,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/tx_email"
         android:layout_centerHorizontal="true"
-        android:padding="15dp"
+        android:padding="10dp"
          />
 
 </RelativeLayout>
