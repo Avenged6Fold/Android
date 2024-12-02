@@ -1,0 +1,69 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.TiketFragment"
+    android:background="@color/white">
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="140dp"
+        android:background="@color/primary_colour"
+        android:id="@+id/view_tiket1"
+        />
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginLeft="25dp"
+        android:src="@drawable/icon_back2"
+        android:id="@+id/icon_back"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:text="Cek Tiket"
+        android:fontFamily="@font/poppinssemibold"
+        android:textSize="18dp"
+        android:textColor="@color/white"
+        />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="110dp"
+        android:background="@drawable/view_home"
+        />
+
+    <androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="150dp"
+        android:layout_centerHorizontal="true"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="15dp"
+        app:cardBackgroundColor="@color/white"
+        android:id="@+id/cardview">
+
+        <TextView
+            android:id="@+id/destinasiName"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/destinasiImage"
+            android:layout_alignStart="@id/destinasiImage"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/poppinsmedium"
+            android:text="Nama Destinasi"
+            android:textColor="@color/black"
+            android:textSize="14dp" />
+
+    </androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>
