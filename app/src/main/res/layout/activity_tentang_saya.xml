@@ -1,155 +1,133 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.TiketFragment"
     android:background="@color/white">
 
+    <!-- Header View -->
     <View
-        android:layout_width="wrap_content"
-        android:layout_height="150dp"
-        android:background="@color/primary_colour"
         android:id="@+id/view_tiket1"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@color/primary_colour" />
 
+    <!-- Back Icon -->
     <ImageView
+        android:id="@+id/icon_back"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginTop="24dp"
-        android:layout_marginLeft="25dp"
+        android:layout_marginStart="25dp"
         android:src="@drawable/icon_back2"
-        android:id="@+id/icon_back"
-        />
+        android:contentDescription="Back Icon" />
 
+    <!-- Title -->
     <TextView
+        android:id="@+id/tx_tentangsaya"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:text="Tentang Saya"
         android:fontFamily="@font/poppinssemibold"
-        android:textSize="16dp"
-        android:textColor="@color/white"
-        android:id="@+id/tx_tentangsaya"
-        />
+        android:textSize="16sp"
+        android:textColor="@color/white" />
 
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginTop="120dp"
-        android:background="@drawable/view_home"
-        />
-
-    <androidx.cardview.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        card_view:cardCornerRadius="45dp"
-        card_view:cardElevation="4dp"
-        card_view:cardBackgroundColor="@color/white"
+    <!-- Profile Image (Lingkaran) -->
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imgProfile"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/icon_addimage"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
-        android:id="@+id/CariDestinasiCardView"
-        >
+        app:shapeAppearanceOverlay="@style/CircleImage"
+        android:contentDescription="Profile Image" />
 
-        <ImageView
-            android:id="@+id/searchInput"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/icon_addimage"/>
-    </androidx.cardview.widget.CardView>
-
+    <!-- Email Input -->
     <EditText
+        android:id="@+id/etx_email"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_below="@id/CariDestinasiCardView"
-        android:layout_marginTop="100dp"
+        android:layout_below="@id/imgProfile"
+        android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
-        android:backgroundTint="@color/primary_colour"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:textColorHint="@color/primary_colour"
         android:textColor="@color/primary_colour"
-        android:fontFamily="@font/poppinsregular"
-        android:id="@+id/etx_email"
-        />
+        android:fontFamily="@font/poppinsregular" />
 
+    <!-- Username Input -->
     <EditText
+        android:id="@+id/etx_username"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_below="@id/etx_email"
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
-        android:backgroundTint="@color/primary_colour"
         android:hint="Username"
         android:inputType="textPersonName"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:textColorHint="@color/primary_colour"
         android:textColor="@color/primary_colour"
-        android:fontFamily="@font/poppinsregular"
-        android:id="@+id/etx_username"
-        />
+        android:fontFamily="@font/poppinsregular" />
 
+    <!-- Phone Number Input -->
     <EditText
+        android:id="@+id/etx_notelpon"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_below="@id/etx_username"
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
-        android:backgroundTint="@color/primary_colour"
         android:hint="No Telp"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:textColorHint="@color/primary_colour"
         android:textColor="@color/primary_colour"
-        android:fontFamily="@font/poppinsregular"
-        android:id="@+id/etx_notelpon"
-        />
+        android:fontFamily="@font/poppinsregular" />
 
+    <!-- Gender Input -->
     <EditText
+        android:id="@+id/etx_jeniskelamin"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_below="@id/etx_notelpon"
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
-        android:backgroundTint="@color/primary_colour"
         android:hint="Jenis Kelamin"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:textColorHint="@color/primary_colour"
         android:textColor="@color/primary_colour"
-        android:fontFamily="@font/poppinsregular"
-        android:id="@+id/etx_jeniskelamin"
-        />
+        android:fontFamily="@font/poppinsregular" />
 
+    <!-- Address Input -->
     <EditText
+        android:id="@+id/etx_alamat"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_below="@id/etx_jeniskelamin"
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
-        android:backgroundTint="@color/primary_colour"
         android:hint="Alamat"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:textColorHint="@color/primary_colour"
         android:textColor="@color/primary_colour"
-        android:fontFamily="@font/poppinsregular"
-        android:id="@+id/etx_alamat"
-        />
+        android:fontFamily="@font/poppinsregular" />
 
+    <!-- Save Button -->
     <Button
+        android:id="@+id/btn_register"
         android:layout_width="300dp"
-        android:layout_height="35dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/etx_alamat"
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/etx_alamat"
         android:background="@drawable/button_shape_sc"
         android:text="Simpan"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:textColor="@color/white"
-        android:fontFamily="@font/poppinsregular"
-        android:id="@+id/btn_register"
-        />
-
+        android:fontFamily="@font/poppinsregular" />
 </RelativeLayout>
