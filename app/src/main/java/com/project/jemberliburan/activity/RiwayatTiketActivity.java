@@ -11,13 +11,14 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.project.jemberliburan.R;
 
-public class FavoritSayaActivity extends AppCompatActivity {
+public class RiwayatTiketActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_favorit_saya);
+        setContentView(R.layout.activity_riwayat_tiket);
+
         ImageView backButton = findViewById(R.id.icon_back);
 
         // Tambahkan listener untuk icon_back

@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:text="Bantuan"
+        android:text="Riwayat Tiket"
         android:fontFamily="@font/poppinssemibold"
         android:textSize="18dp"
         android:textColor="@color/white"
