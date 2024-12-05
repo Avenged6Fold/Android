@@ -42,6 +42,8 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    implementation ("com.tbuonomo:dotsindicator:4.3")
+    implementation ("com.google.code.gson:gson:2.8.9")
     implementation("com.android.volley:volley:1.2.1")
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.recyclerview:recyclerview:1.3.0")
