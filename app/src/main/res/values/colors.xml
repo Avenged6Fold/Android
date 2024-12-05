@@ -6,4 +6,5 @@
     <color name="secondary_colour">#E58725</color>
     <color name="default_colour">#F0F0F0</color>
     <color name="font_colour">#9F9F9F</color>
+    <color name="radio_unchecked_color">#9E9E9E</color>
 </resources>

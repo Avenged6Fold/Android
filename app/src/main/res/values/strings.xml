@@ -13,4 +13,19 @@
     <string name="enter_code_digit5">Masukkan digit kelima kode verifikasi</string>
     <string name="enter_code_digit6">Masukkan digit keenam kode verifikasi</string>
     <string name="back">kembali</string>
+
+
+    <string name="logo_profile">Logo Profile</string>
+    <string name="profile_image">Gambar Profil</string>
+    <string name="profile_icon">Icon Profil</string>
+    <string name="profile_action">Aksi Profil</string>
+        <!-- Tambahkan string lainnya sesuai kebutuhan -->
+
+
+
+
+    <string-array name="gender_options">
+        <item>Laki-laki</item>
+        <item>Perempuan</item>
+    </string-array>
 </resources>
