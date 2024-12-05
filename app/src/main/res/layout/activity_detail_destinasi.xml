@@ -65,6 +65,7 @@
         android:layout_marginTop="222dp"
         android:layout_marginRight="30dp"
         android:src="@drawable/icon_favoritsaya"
+        android:id="@+id/img_favoritsaya"
         />
 
     <TextView

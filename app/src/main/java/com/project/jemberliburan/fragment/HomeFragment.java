@@ -176,6 +176,7 @@ public class HomeFragment extends Fragment {
     }
 
 
+
     private List<Category> getCategoryList() {
         // Membuat daftar kategori
         List<Category> categories = new ArrayList<>();

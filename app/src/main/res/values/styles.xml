@@ -14,4 +14,8 @@
         <item name="android:textSize">14dp</item> <!-- Ukuran teks, sesuaikan jika diperlukan -->
     </style>
 
+    <style name="CircleImage">
+        <item name="cornerSize">50%</item>
+    </style>
+
 </resources>

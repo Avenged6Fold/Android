@@ -1,10 +1,12 @@
 package com.project.jemberliburan.fragment;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.project.jemberliburan.R;
+import com.project.jemberliburan.activity.TentangSayaActivity;
 import com.project.jemberliburan.adapter.ProfileAdapter;
 import com.project.jemberliburan.Model.Profile;
 
@@ -59,6 +62,13 @@ public class ProfileFragment extends Fragment {
         // Set username dan email ke TextView
         usernameTextView.setText(username);
         emailTextView.setText(email);
+
+        ImageView logoProfile = view.findViewById(R.id.logoProfile);
+        logoProfile.setOnClickListener(v -> {
+            // Pindah ke TentangSayaActivity
+            Intent intent = new Intent(requireContext(), TentangSayaActivity.class);
+            startActivity(intent);
+        });
 
         return view;
     }
