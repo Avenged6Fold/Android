@@ -18,6 +18,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".adapter.WellcomeSliderAdapter"
+            android:exported="false" />
+        <activity
             android:name=".activity.FavoritSayaActivity"
             android:exported="false" />
         <activity
@@ -39,10 +42,19 @@
             android:name=".activity.DetailDestinasiActivity"
             android:exported="false" />
         <activity
+            android:name=".activity.DetailTipActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.UlasanActivity"
             android:exported="false" />
         <activity
             android:name=".Model.Fitur"
+            android:exported="false" />
+        <activity
+            android:name=".activity.CekTiketActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.RiwayatTiketActivity"
             android:exported="false" />
         <activity
             android:name=".adapter.FiturAdapter"
