@@ -70,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
         btn_lgn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String username = etx_username.getText().toString().trim();
                 String password = etx_password.getText().toString().trim();
                 Log.d("LoginData", "Username: " + username + ", Password: " + password);
@@ -90,16 +91,39 @@ public class LoginActivity extends AppCompatActivity {
                                 String status = jsonResponse.getString("status");
 
                                 if (status.equals("success")) {
-                                    // Ambil email dari response
+                                    // Ambil data langsung dari jsonResponse
+                                    int userId = jsonResponse.getInt("user_id");
+                                    String usernameDB = jsonResponse.getString("username");
                                     String email = jsonResponse.getString("email");
+                                    String fotoProfil = jsonResponse.getString("foto_profil");
+                                    String noTelp = jsonResponse.has("no_telp") ? jsonResponse.getString("no_telp") : "No. Telepon Tidak Ditemukan";
+                                    String alamat = jsonResponse.has("alamat") ? jsonResponse.getString("alamat") : "Alamat Tidak Ditemukan";
+                                    String jenisKelamin = jsonResponse.has("jenis_kelamin") ? jsonResponse.getString("jenis_kelamin") : "Tidak Diketahui";
 
-                                    // Simpan data username dan email di SharedPreferences
+                                    Log.d("LoginSuccess", "UserID: " + userId + ", Username: " + usernameDB + ", Email: " + email);
+                                    Log.d("LoginSuccess", "FotoProfil: " + fotoProfil + ", NoTelp: " + noTelp + ", Alamat: " + alamat + ", JenisKelamin: " + jenisKelamin);
+
+                                    // Simpan data ke SharedPreferences
                                     SharedPreferences preferences = getSharedPreferences("login_prefs", Context.MODE_PRIVATE);
                                     SharedPreferences.Editor editor = preferences.edit();
                                     editor.putBoolean("isLoggedIn", true);
-                                    editor.putString("Username", username); // Menyimpan username
+                                    editor.putString("Username", usernameDB); // Menyimpan username dari database
                                     editor.putString("Email", email); // Menyimpan email
+                                    editor.putInt("UserID", userId); // Menyimpan UserID
+                                    editor.putString("FotoProfil", fotoProfil); // Menyimpan Foto Profil
+                                    editor.putString("Phone", noTelp); // Menyimpan Nomor Telepon
+                                    editor.putString("Address", alamat); // Menyimpan Alamat
+                                    editor.putString("Gender", jenisKelamin); // Menyimpan Jenis Kelamin
                                     editor.apply();
+
+                                    // Log SharedPreferences untuk debugging
+                                    Log.d("SharedPreferences", "UserID: " + userId);
+                                    Log.d("SharedPreferences", "Username: " + usernameDB);
+                                    Log.d("SharedPreferences", "Email: " + email);
+                                    Log.d("SharedPreferences", "FotoProfil: " + fotoProfil);
+                                    Log.d("SharedPreferences", "NoTelp: " + noTelp);
+                                    Log.d("SharedPreferences", "Alamat: " + alamat);
+                                    Log.d("SharedPreferences", "Gender: " + jenisKelamin);
 
                                     // Pindah ke halaman utama setelah login
                                     Intent intent = new Intent(LoginActivity.this, NavigasiActivity.class);
@@ -128,7 +152,6 @@ public class LoginActivity extends AppCompatActivity {
                                 return params;
                             }
                         };
-
 
                         stringRequest.setRetryPolicy(new DefaultRetryPolicy(
                                 10000,

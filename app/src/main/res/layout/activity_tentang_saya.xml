@@ -3,9 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    tools:context=".activity.TentangSayaActivity">
 
     <!-- Header View -->
+
     <View
         android:id="@+id/view_tiket1"
         android:layout_width="match_parent"
@@ -13,6 +15,7 @@
         android:background="@color/primary_colour" />
 
     <!-- Back Icon -->
+
     <ImageView
         android:id="@+id/icon_back"
         android:layout_width="20dp"
@@ -22,7 +25,28 @@
         android:src="@drawable/icon_back2"
         android:contentDescription="Back Icon" />
 
+    <!-- Tambahkan ProgressBar di layout XML Anda -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+
     <!-- Title -->
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imgProfile"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/circle_background"
+        android:contentDescription="Profile Image"
+        android:src="@drawable/icon_addimage" />
+
+
     <TextView
         android:id="@+id/tx_tentangsaya"
         android:layout_width="wrap_content"
@@ -35,15 +59,6 @@
         android:textColor="@color/white" />
 
     <!-- Profile Image (Lingkaran) -->
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/imgProfile"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/icon_addimage"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
-        app:shapeAppearanceOverlay="@style/CircleImage"
-        android:contentDescription="Profile Image" />
 
     <!-- Email Input -->
     <EditText
@@ -51,14 +66,15 @@
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_below="@id/imgProfile"
-        android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:enabled="false"
+        android:fontFamily="@font/poppinsregular"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        android:textSize="16sp"
-        android:textColorHint="@color/primary_colour"
         android:textColor="@color/primary_colour"
-        android:fontFamily="@font/poppinsregular" />
+        android:textColorHint="@color/primary_colour"
+        android:textSize="16sp" />
 
     <!-- Username Input -->
     <EditText
@@ -69,6 +85,7 @@
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:hint="Username"
+        android:backgroundTint="@color/primary_colour"
         android:inputType="textPersonName"
         android:textSize="16sp"
         android:textColorHint="@color/primary_colour"
@@ -84,35 +101,71 @@
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:hint="No Telp"
+        android:backgroundTint="@color/primary_colour"
         android:textSize="16sp"
         android:textColorHint="@color/primary_colour"
         android:textColor="@color/primary_colour"
         android:fontFamily="@font/poppinsregular" />
 
-    <!-- Gender Input -->
-    <EditText
-        android:id="@+id/etx_jeniskelamin"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_below="@id/etx_notelpon"
-        android:layout_marginTop="10dp"
-        android:layout_centerHorizontal="true"
-        android:hint="Jenis Kelamin"
-        android:textSize="16sp"
-        android:textColorHint="@color/primary_colour"
+    <!-- Label for Gender -->
+
+    <!-- Gender RadioGroup -->
+
+    <TextView
+        android:id="@+id/tv_jeniskelamin_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etx_notelpon"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/poppinsregular"
+        android:text="Jenis Kelamin"
         android:textColor="@color/primary_colour"
-        android:fontFamily="@font/poppinsregular" />
+        android:textSize="16sp" />
+
+    <RadioGroup
+        android:id="@+id/rg_jeniskelamin"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_jeniskelamin_label"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <RadioButton
+            android:id="@+id/rb_laki"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Laki-laki"
+            android:textColor="@color/primary_colour"
+            android:fontFamily="@font/poppinsregular"
+            android:textSize="16sp"
+            android:buttonTint="@color/primary_colour" />
+
+        <RadioButton
+            android:id="@+id/rb_perempuan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Perempuan"
+            android:textColor="@color/primary_colour"
+            android:fontFamily="@font/poppinsregular"
+            android:textSize="16sp"
+            android:buttonTint="@color/primary_colour"
+            android:layout_marginStart="30dp" />
+    </RadioGroup>
 
     <!-- Address Input -->
     <EditText
         android:id="@+id/etx_alamat"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_below="@id/etx_jeniskelamin"
+        android:layout_below="@id/rg_jeniskelamin"
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:hint="Alamat"
         android:textSize="16sp"
+        android:backgroundTint="@color/primary_colour"
         android:textColorHint="@color/primary_colour"
         android:textColor="@color/primary_colour"
         android:fontFamily="@font/poppinsregular" />

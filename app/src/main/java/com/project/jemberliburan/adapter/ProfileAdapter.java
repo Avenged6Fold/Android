@@ -1,23 +1,18 @@
 package com.project.jemberliburan.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.project.jemberliburan.R;
 import com.project.jemberliburan.Model.Profile;
-import com.project.jemberliburan.activity.BantuanActivity;
-import com.project.jemberliburan.activity.FavoritSayaActivity;
-import com.project.jemberliburan.activity.LoginActivity;
-import com.project.jemberliburan.activity.UlasanActivity;
 
 import java.util.List;
 
@@ -25,10 +20,18 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
 
     private Context context;
     private List<Profile> profileList;
+    private OnItemClickListener listener; // Listener untuk menangani klik
 
-    public ProfileAdapter(Context context, List<Profile> profileList) {
+    // Interface untuk menangani klik item
+    public interface OnItemClickListener {
+        void onItemClick(Profile profile);
+    }
+
+    // Konstruktor
+    public ProfileAdapter(Context context, List<Profile> profileList, OnItemClickListener listener) {
         this.context = context;
         this.profileList = profileList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -47,32 +50,10 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
         holder.textViewTitle.setText(item.getTitle());
         holder.imageViewAction.setImageResource(item.getActionResId());
 
-        // Tambahkan listener untuk item
+        // Menetapkan klik listener pada item
         holder.cardView.setOnClickListener(v -> {
-            switch (item.getTitle()) {
-                case "Favorit Saya":
-                    context.startActivity(new Intent(context, FavoritSayaActivity.class));
-                    break;
-                case "Ulasan":
-                    context.startActivity(new Intent(context, UlasanActivity.class));
-                    break;
-                case "Bantuan":
-                    context.startActivity(new Intent(context, BantuanActivity.class));
-                    break;
-                case "Log Out":
-                    // Hapus status login dari SharedPreferences
-                    SharedPreferences preferences = context.getSharedPreferences("login_prefs", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putBoolean("isLoggedIn", false);
-                    editor.apply();
-
-                    // Arahkan kembali ke halaman login
-                    Intent intent = new Intent(context, LoginActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    context.startActivity(intent);
-                    break;
-                default:
-                    break;
+            if (listener != null) {
+                listener.onItemClick(item);
             }
         });
     }
