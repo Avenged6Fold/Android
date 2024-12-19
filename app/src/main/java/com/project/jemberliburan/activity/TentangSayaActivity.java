@@ -32,7 +32,6 @@ import androidx.core.content.ContextCompat;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
@@ -88,13 +87,13 @@ public class TentangSayaActivity extends AppCompatActivity {
 
         // Ambil data username, email, dan UserID dari SharedPreferences
         SharedPreferences preferences = getSharedPreferences("login_prefs", Context.MODE_PRIVATE);
-        String username = preferences.getString("Username", "");
-        String email = preferences.getString("Email", "");
-        int userId = preferences.getInt("UserID", -1); // Ambil UserID
-        String fotoProfil = preferences.getString("FotoProfil", "uploads/default.png");
-        String noTelp = preferences.getString("Phone", ""); // Ubah nama variabel
-        String alamat = preferences.getString("Address", ""); // Ubah nama variabel
-        String gender = preferences.getString("Gender", "");
+        String username = preferences.getString("username", ""); // Gunakan key "username" lowercase
+        String email = preferences.getString("email", "");       // Gunakan key "email" lowercase
+        int userId = preferences.getInt("user_id", -1);          // Gunakan key "user_id" lowercase
+        String fotoProfil = preferences.getString("foto_profil", "uploads/default.png"); // Gunakan key "foto_profil" lowercase
+        String noTelp = preferences.getString("phone", "");      // Gunakan key "phone" lowercase
+        String alamat = preferences.getString("address", "");    // Gunakan key "address" lowercase
+        String gender = preferences.getString("gender", "");     // Gunakan key "gender" lowercase
 
         Log.d("TentangSaya", "UserID: " + userId + ", Username: " + username + ", Email: " + email + ", FotoProfil: " + fotoProfil + ", Gender: " + gender);
 
@@ -110,8 +109,8 @@ public class TentangSayaActivity extends AppCompatActivity {
         etUsername.setText(username);
         etEmail.setText(email);
         etEmail.setEnabled(false);
-        etPhone.setText(noTelp); // Ubah nama variabel
-        etAddress.setText(alamat); // Menonaktifkan EditText email
+        etPhone.setText(noTelp);
+        etAddress.setText(alamat);
 
         // Muat gambar profil menggunakan Glide
         String imageUrl = "http://" + Db_Contract.ip + "/Jeli_API/" + fotoProfil;
@@ -129,15 +128,11 @@ public class TentangSayaActivity extends AppCompatActivity {
         }
 
         // Listener untuk tombol kembali
-        icon_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                // Kembali ke NavigasiActivity
-                Intent intent = new Intent(TentangSayaActivity.this, NavigasiActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        icon_back.setOnClickListener(v -> {
+            // Kembali ke NavigasiActivity
+            Intent intent = new Intent(TentangSayaActivity.this, NavigasiActivity.class);
+            startActivity(intent);
+            finish();
         });
 
         // Inisialisasi ActivityResultLauncher untuk permintaan izin
@@ -157,21 +152,17 @@ public class TentangSayaActivity extends AppCompatActivity {
         );
 
         // Listener untuk ImageView profil untuk memilih gambar
-        imgProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                // Cek izin penyimpanan
-                if (ContextCompat.checkSelfPermission(TentangSayaActivity.this,
-                        (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-                                ? Manifest.permission.READ_MEDIA_IMAGES
-                                : Manifest.permission.READ_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    // Tampilkan dialog permintaan izin
-                    showPermissionDialog();
-                } else {
-                    openFileChooser();
-                }
+        imgProfile.setOnClickListener(v -> {
+            // Cek izin penyimpanan
+            if (ContextCompat.checkSelfPermission(TentangSayaActivity.this,
+                    (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+                            ? Manifest.permission.READ_MEDIA_IMAGES
+                            : Manifest.permission.READ_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                // Tampilkan dialog permintaan izin
+                showPermissionDialog();
+            } else {
+                openFileChooser();
             }
         });
 
@@ -197,32 +188,28 @@ public class TentangSayaActivity extends AppCompatActivity {
         );
 
         // Listener untuk tombol simpan
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btnSave.setOnClickListener(v -> {
+            // Ambil data dari EditText dan RadioButton
+            String emailInput = etEmail.getText().toString().trim(); // Email tetap diambil dari EditText yang dinonaktifkan
+            String usernameInput = etUsername.getText().toString().trim();
+            String noTelpInput = etPhone.getText().toString().trim();
+            String alamatInput = etAddress.getText().toString().trim();
 
-                // Ambil data dari EditText dan RadioButton
-                String emailInput = etEmail.getText().toString().trim(); // Email tetap diambil dari EditText yang dinonaktifkan
-                String usernameInput = etUsername.getText().toString().trim();
-                String noTelpInput = etPhone.getText().toString().trim(); // Ubah variabel menjadi noTelp
-                String alamatInput = etAddress.getText().toString().trim(); // Ubah variabel menjadi alamat
-
-                // Validasi data
-                if (usernameInput.isEmpty() || noTelpInput.isEmpty() || rgJenisKelamin.getCheckedRadioButtonId() == -1 || alamatInput.isEmpty()) {
-                    Toast.makeText(TentangSayaActivity.this, "Harap lengkapi semua data!", Toast.LENGTH_SHORT).show();
-                } else {
-                    // Ambil pilihan jenis kelamin
-                    String jenisKelamin = "";
-                    int selectedId = rgJenisKelamin.getCheckedRadioButtonId();
-                    if (selectedId == R.id.rb_laki) {
-                        jenisKelamin = rbLaki.getText().toString();
-                    } else if (selectedId == R.id.rb_perempuan) {
-                        jenisKelamin = rbPerempuan.getText().toString();
-                    }
-
-                    // Panggil metode untuk mengupdate profil
-                    updateProfile(userId, emailInput, usernameInput, noTelpInput, jenisKelamin, alamatInput);
+            // Validasi data
+            if (usernameInput.isEmpty() || noTelpInput.isEmpty() || rgJenisKelamin.getCheckedRadioButtonId() == -1 || alamatInput.isEmpty()) {
+                Toast.makeText(TentangSayaActivity.this, "Harap lengkapi semua data!", Toast.LENGTH_SHORT).show();
+            } else {
+                // Ambil pilihan jenis kelamin
+                String jenisKelamin = "";
+                int selectedId = rgJenisKelamin.getCheckedRadioButtonId();
+                if (selectedId == R.id.rb_laki) {
+                    jenisKelamin = rbLaki.getText().toString();
+                } else if (selectedId == R.id.rb_perempuan) {
+                    jenisKelamin = rbPerempuan.getText().toString();
                 }
+
+                // Panggil metode untuk mengupdate profil
+                updateProfile(userId, emailInput, usernameInput, noTelpInput, jenisKelamin, alamatInput);
             }
         });
     }
@@ -344,16 +331,16 @@ public class TentangSayaActivity extends AppCompatActivity {
                             // Update SharedPreferences
                             SharedPreferences preferences = getSharedPreferences("login_prefs", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = preferences.edit();
-                            editor.putString("Username", username);
-                            editor.putString("Email", email); // Email tetap disimpan tanpa diubah
-                            editor.putString("Phone", noTelp); // Simpan no_telp
-                            editor.putString("Gender", jenisKelamin); // Simpan jenis_kelamin
-                            editor.putString("Address", alamat);
+                            editor.putString("username", username); // Gunakan key lowercase
+                            editor.putString("email", email);       // Email tetap disimpan tanpa diubah
+                            editor.putString("phone", noTelp);      // Simpan no_telp
+                            editor.putString("gender", jenisKelamin); // Simpan jenis_kelamin
+                            editor.putString("address", alamat);
 
                             // Jika server mengembalikan path gambar yang baru
                             if(jsonObject.has("foto_profil")) {
                                 String fotoProfil = jsonObject.getString("foto_profil");
-                                editor.putString("FotoProfil", fotoProfil);
+                                editor.putString("foto_profil", fotoProfil);
                             }
 
                             editor.apply();

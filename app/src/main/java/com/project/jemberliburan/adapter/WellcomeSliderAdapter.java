@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -22,12 +23,12 @@ public class WellcomeSliderAdapter extends RecyclerView.Adapter<WellcomeSliderAd
 
     private Context context;
     private List<Wellcome> wellcomeItems;
-    private ViewPager2 viewPager; // Tambahkan referensi ViewPager2
+    private ViewPager2 viewPager; // Referensi ViewPager2
 
-    public WellcomeSliderAdapter(Context context, List<Wellcome> welcomeItems, ViewPager2 viewPager) {
+    public WellcomeSliderAdapter(Context context, List<Wellcome> wellcomeItems, ViewPager2 viewPager) {
         this.context = context;
-        this.wellcomeItems = welcomeItems;
-        this.viewPager = viewPager; // Inisialisasi ViewPager2
+        this.wellcomeItems = wellcomeItems;
+        this.viewPager = viewPager;
     }
 
     @NonNull
@@ -45,19 +46,20 @@ public class WellcomeSliderAdapter extends RecyclerView.Adapter<WellcomeSliderAd
         holder.mainImageView.setImageResource(item.getImageResource());
         holder.swipeImageView.setImageResource(item.getSwipeImageResource());
 
-        // Tambahkan aksi untuk swipeImageView
+        // Menangani klik pada swipeImageView berdasarkan posisi
         holder.swipeImageView.setOnClickListener(v -> {
             if (position < wellcomeItems.size() - 1) {
-                // Berpindah ke item berikutnya
-                if (holder.swipeImageView.getDrawable().getConstantState()
-                        == context.getResources().getDrawable(R.drawable.icon_swipe1).getConstantState()) {
-                    viewPager.setCurrentItem(position + 1); // Gunakan referensi ViewPager2
-                }
-            } else if (holder.swipeImageView.getDrawable().getConstantState()
-                    == context.getResources().getDrawable(R.drawable.icon_swipe2).getConstantState()) {
-                // Berpindah ke LoginActivity
+                // Berpindah ke halaman berikutnya
+                viewPager.setCurrentItem(position + 1, true);
+            } else {
+                // Berpindah ke LoginActivity jika ini adalah halaman terakhir
                 Intent intent = new Intent(context, LoginActivity.class);
                 context.startActivity(intent);
+
+                // Opsional: Hentikan WellcomeActivity agar tidak kembali ke sini
+                if (context instanceof AppCompatActivity) {
+                    ((AppCompatActivity) context).finish();
+                }
             }
         });
     }

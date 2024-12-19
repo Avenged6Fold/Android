@@ -38,21 +38,39 @@ public class WellcomeActivity extends AppCompatActivity {
         // Jika belum login, tampilkan layout wellcome
         setContentView(R.layout.activity_wellcome);
 
-        // ViewPager2 untuk slider
+        // Inisialisasi ViewPager2 dan DotsIndicator
         ViewPager2 viewPager = findViewById(R.id.viewPager);
         DotsIndicator dotsIndicator = findViewById(R.id.dotsIndicator);
 
+        // Membuat daftar item Wellcome
         List<Wellcome> wellcomeItems = new ArrayList<>();
-        wellcomeItems.add(new Wellcome("liburan jadi makin gampang", "JELI hadir buat bikin rencana liburan kamu lebih seru dan bebas ribet. Mulai dari info destinasi, pesan tiket, sampai tips liburan, semua ada di satu aplikasi!", R.drawable.img_wellcome1, R.drawable.icon_swipe1));
-        wellcomeItems.add(new Wellcome("fitur simpel, liburan jadi fleksibel", "Aplikasi JELI dirancang buat kamu yang suka hal praktis semua fitur gampang dipakai dan cocok untuk rencana dadakan maupun yang sudah terjadwal", R.drawable.img_wellcome2, R.drawable.icon_swipe1));
-        wellcomeItems.add(new Wellcome("mulai liburanmu bersama", "Yuk, mulai eksplorasi perjalanan impianmu bareng JELI. Semua udah siap, tinggal klik, dan nikmati liburan asikmu!", R.drawable.img_wellcome3, R.drawable.icon_swipe2));
+        wellcomeItems.add(new Wellcome(
+                "Liburan Jadi Makin Gampang",
+                "JELI hadir buat bikin rencana liburan kamu lebih seru dan bebas ribet. Mulai dari info destinasi, pesan tiket, sampai tips liburan, semua ada di satu aplikasi!",
+                R.drawable.img_wellcome1,
+                R.drawable.icon_swipe1
+        ));
+        wellcomeItems.add(new Wellcome(
+                "Fitur Simpel, Liburan Jadi Fleksibel",
+                "Aplikasi JELI dirancang buat kamu yang suka hal praktis semua fitur gampang dipakai dan cocok untuk rencana dadakan maupun yang sudah terjadwal",
+                R.drawable.img_wellcome2,
+                R.drawable.icon_swipe1
+        ));
+        wellcomeItems.add(new Wellcome(
+                "Mulai Liburanmu Bersama",
+                "Yuk, mulai eksplorasi perjalanan impianmu bareng JELI. Semua udah siap, tinggal klik, dan nikmati liburan asikmu!",
+                R.drawable.img_wellcome3,
+                R.drawable.icon_swipe2
+        ));
 
+        // Inisialisasi Adapter
         WellcomeSliderAdapter adapter = new WellcomeSliderAdapter(this, wellcomeItems, viewPager);
         viewPager.setAdapter(adapter);
 
+        // Hubungkan DotsIndicator dengan ViewPager2
         dotsIndicator.setViewPager2(viewPager);
 
-        // Atur orientasi swipe ke vertikal
+        // Atur orientasi swipe ke horizontal (default sebenarnya)
         viewPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
     }
 }

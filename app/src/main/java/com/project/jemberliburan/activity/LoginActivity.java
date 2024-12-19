@@ -100,30 +100,30 @@ public class LoginActivity extends AppCompatActivity {
                                     String alamat = jsonResponse.has("alamat") ? jsonResponse.getString("alamat") : "Alamat Tidak Ditemukan";
                                     String jenisKelamin = jsonResponse.has("jenis_kelamin") ? jsonResponse.getString("jenis_kelamin") : "Tidak Diketahui";
 
-                                    Log.d("LoginSuccess", "UserID: " + userId + ", Username: " + usernameDB + ", Email: " + email);
+                                    Log.d("LoginSuccess", "UserID: " + userId + ", Username: " + usernameDB + ", email: " + email);
                                     Log.d("LoginSuccess", "FotoProfil: " + fotoProfil + ", NoTelp: " + noTelp + ", Alamat: " + alamat + ", JenisKelamin: " + jenisKelamin);
 
                                     // Simpan data ke SharedPreferences
                                     SharedPreferences preferences = getSharedPreferences("login_prefs", Context.MODE_PRIVATE);
                                     SharedPreferences.Editor editor = preferences.edit();
                                     editor.putBoolean("isLoggedIn", true);
-                                    editor.putString("Username", usernameDB); // Menyimpan username dari database
-                                    editor.putString("Email", email); // Menyimpan email
-                                    editor.putInt("UserID", userId); // Menyimpan UserID
-                                    editor.putString("FotoProfil", fotoProfil); // Menyimpan Foto Profil
-                                    editor.putString("Phone", noTelp); // Menyimpan Nomor Telepon
-                                    editor.putString("Address", alamat); // Menyimpan Alamat
-                                    editor.putString("Gender", jenisKelamin); // Menyimpan Jenis Kelamin
+                                    editor.putString("username", usernameDB); // Menyimpan username dari database
+                                    editor.putString("email", email); // Menyimpan email
+                                    editor.putInt("user_id", userId); // Menyimpan UserID
+                                    editor.putString("foto_profil", fotoProfil); // Menyimpan Foto Profil
+                                    editor.putString("phone", noTelp); // Menyimpan Nomor Telepon
+                                    editor.putString("address", alamat); // Menyimpan Alamat
+                                    editor.putString("gender", jenisKelamin); // Menyimpan Jenis Kelamin
                                     editor.apply();
 
                                     // Log SharedPreferences untuk debugging
-                                    Log.d("SharedPreferences", "UserID: " + userId);
-                                    Log.d("SharedPreferences", "Username: " + usernameDB);
-                                    Log.d("SharedPreferences", "Email: " + email);
-                                    Log.d("SharedPreferences", "FotoProfil: " + fotoProfil);
-                                    Log.d("SharedPreferences", "NoTelp: " + noTelp);
-                                    Log.d("SharedPreferences", "Alamat: " + alamat);
-                                    Log.d("SharedPreferences", "Gender: " + jenisKelamin);
+                                    Log.d("SharedPreferences", "user_id: " + userId);
+                                    Log.d("SharedPreferences", "username: " + usernameDB);
+                                    Log.d("SharedPreferences", "email: " + email);
+                                    Log.d("SharedPreferences", "foto_profil: " + fotoProfil);
+                                    Log.d("SharedPreferences", "phone: " + noTelp);
+                                    Log.d("SharedPreferences", "address: " + alamat);
+                                    Log.d("SharedPreferences", "gender: " + jenisKelamin);
 
                                     // Pindah ke halaman utama setelah login
                                     Intent intent = new Intent(LoginActivity.this, NavigasiActivity.class);

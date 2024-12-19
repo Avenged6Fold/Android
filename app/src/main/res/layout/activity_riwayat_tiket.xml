@@ -39,4 +39,24 @@
         android:background="@drawable/view_home"
         />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewRiwayatTiket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:layout_centerHorizontal="true"
+        android:padding="10dp"
+        />
+
+    <TextView
+        android:id="@+id/textViewPesan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tidak ada data ditemukan."
+        android:textSize="16sp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/recyclerViewRiwayatTiket"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        android:textColor="@color/black" />
 </RelativeLayout>

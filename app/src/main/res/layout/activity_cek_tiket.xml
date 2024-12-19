@@ -1,69 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_cek_tiket"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.TiketFragment"
+    tools:context=".activity.CekTiketActivity"
     android:background="@color/white">
 
+    <!-- Header -->
     <View
-        android:layout_width="wrap_content"
-        android:layout_height="140dp"
-        android:background="@color/primary_colour"
         android:id="@+id/view_tiket1"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@color/primary_colour" />
 
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginLeft="25dp"
-        android:src="@drawable/icon_back2"
-        android:id="@+id/icon_back"
-        />
-
+    <!-- Judul -->
     <TextView
+        android:id="@+id/textViewJudulCekTiket"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:text="Cek Tiket"
         android:fontFamily="@font/poppinssemibold"
-        android:textSize="18dp"
-        android:textColor="@color/white"
-        />
+        android:textSize="18sp"
+        android:textColor="@color/white" />
 
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginTop="110dp"
-        android:background="@drawable/view_home"
-        />
-
-    <androidx.cardview.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <!-- Logo Tiket -->
+    <ImageView
+        android:id="@+id/img_tiket"
         android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="150dp"
+        android:layout_height="290dp"
         android:layout_centerHorizontal="true"
-        app:cardElevation="4dp"
-        app:cardCornerRadius="15dp"
-        app:cardBackgroundColor="@color/white"
-        android:id="@+id/cardview">
+        android:layout_marginTop="90dp"
+        android:src="@drawable/logo_tiket"
+        android:contentDescription="Logo Tiket" />
 
-        <TextView
-            android:id="@+id/destinasiName"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/destinasiImage"
-            android:layout_alignStart="@id/destinasiImage"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/poppinsmedium"
-            android:text="Nama Destinasi"
-            android:textColor="@color/black"
-            android:textSize="14dp" />
+    <!-- EditText untuk Cari Tiket (Order ID atau Destinasi) -->
+    <EditText
+        android:id="@+id/editTextCari"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:hint="Masukkan Order ID atau Destinasi"
+        android:inputType="text"
+        android:textColor="@color/primary_colour"
+        android:layout_below="@id/img_tiket"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:padding="12dp"
+        android:background="@drawable/edit_text_background" />
 
-    </androidx.cardview.widget.CardView>
+    <!-- Tombol Cek Tiket -->
+    <Button
+        android:id="@+id/buttonCekTiket"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="Cek Tiket"
+        android:layout_below="@id/editTextCari"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/primary_colour"
+        android:textColor="@color/white" />
 
+    <!-- RecyclerView untuk Menampilkan Hasil -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewTiket"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonCekTiket"
+        android:layout_marginTop="15dp"
+        android:padding="10dp" />
+
+    <!-- TextView untuk Menampilkan Pesan (Jika Tidak Ada Data) -->
+    <TextView
+        android:id="@+id/textViewPesan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tidak ada data ditemukan."
+        android:textSize="16sp"
+        android:layout_below="@id/recyclerViewTiket"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        android:textColor="@color/black" />
 
 </RelativeLayout>

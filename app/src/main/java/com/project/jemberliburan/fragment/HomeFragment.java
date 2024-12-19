@@ -89,7 +89,7 @@ public class HomeFragment extends Fragment {
         // Inisialisasi TextView sapaan
         greetingTextView = view.findViewById(R.id.tx_home1);
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("login_prefs", Context.MODE_PRIVATE);
-        String username = sharedPreferences.getString("Username", ""); // Default kosong jika tidak ada
+        String username = sharedPreferences.getString("username", ""); // Default kosong jika tidak ada
         greetingTextView.setText("Halo, " + username);
 
         // Inisialisasi RecyclerView
