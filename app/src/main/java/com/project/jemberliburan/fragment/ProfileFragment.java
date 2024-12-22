@@ -1,6 +1,5 @@
 package com.project.jemberliburan.fragment;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,13 +12,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.project.jemberliburan.Connection.Db_Contract;
+import com.project.jemberliburan.connection.Db_Contract;
 import com.project.jemberliburan.R;
 import com.project.jemberliburan.activity.BantuanActivity;
 import com.project.jemberliburan.activity.FavoritSayaActivity;
@@ -27,12 +25,13 @@ import com.project.jemberliburan.activity.LoginActivity;
 import com.project.jemberliburan.activity.TentangSayaActivity;
 import com.project.jemberliburan.activity.UlasanActivity;
 import com.project.jemberliburan.adapter.ProfileAdapter;
-import com.project.jemberliburan.Model.Profile;
+import com.project.jemberliburan.model.Profile;
+import com.project.jemberliburan.dialog.LogoutConfirmationDialog;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements LogoutConfirmationDialog.LogoutListener {
 
     private RecyclerView recyclerViewProfile;
     private ProfileAdapter profileAdapter;
@@ -54,7 +53,6 @@ public class ProfileFragment extends Fragment {
         // Inisialisasi daftar data profil
         profileList = new ArrayList<>();
         profileList.add(new Profile(R.drawable.icon_favoritprofile, "Favorit Saya", R.drawable.icon_actionprofile));
-        profileList.add(new Profile(R.drawable.icon_ulasanprofile, "Ulasan", R.drawable.icon_actionprofile));
         profileList.add(new Profile(R.drawable.icon_bantuanprofile, "Bantuan", R.drawable.icon_actionprofile));
         profileList.add(new Profile(R.drawable.icon_logoutprofile, "Log Out", R.drawable.icon_actionprofile));
 
@@ -68,10 +66,6 @@ public class ProfileFragment extends Fragment {
                 } else if (profile.getTitle().equalsIgnoreCase("Favorit Saya")) {
                     // Implementasikan aksi Favorit Saya jika diperlukan
                     Intent intent = new Intent(getContext(), FavoritSayaActivity.class);
-                    startActivity(intent);
-                } else if (profile.getTitle().equalsIgnoreCase("Ulasan")) {
-                    // Implementasikan aksi Ulasan jika diperlukan
-                    Intent intent = new Intent(getContext(), UlasanActivity.class);
                     startActivity(intent);
                 } else if (profile.getTitle().equalsIgnoreCase("Bantuan")) {
                     // Implementasikan aksi Bantuan jika diperlukan
@@ -136,30 +130,20 @@ public class ProfileFragment extends Fragment {
     }
 
     /**
-     * Menampilkan dialog konfirmasi untuk log out.
+     * Menampilkan dialog konfirmasi untuk log out menggunakan DialogFragment.
      */
     private void showLogoutConfirmationDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle("Konfirmasi Log Out");
-        builder.setMessage("Apakah Anda yakin ingin keluar dari aplikasi?");
-        builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        LogoutConfirmationDialog dialog = new LogoutConfirmationDialog();
+        // Tampilkan dialog menggunakan FragmentManager
+        dialog.show(getChildFragmentManager(), "LogoutConfirmationDialog");
+    }
 
-                // Proses log out
-                performLogout();
-            }
-        });
-        builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                // Tutup dialog tanpa melakukan apa-apa
-                dialog.dismiss();
-            }
-        });
-        builder.setCancelable(false); // Tidak bisa ditutup dengan klik di luar dialog
-        builder.show();
+    /**
+     * Implementasi dari LogoutListener yang dipanggil saat konfirmasi log out.
+     */
+    @Override
+    public void onLogoutConfirmed() {
+        performLogout();
     }
 
     /**

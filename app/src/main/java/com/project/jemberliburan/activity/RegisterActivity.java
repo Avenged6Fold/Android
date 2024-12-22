@@ -22,7 +22,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.project.jemberliburan.Connection.Db_Contract;
+import com.project.jemberliburan.connection.Db_Contract;
 import com.project.jemberliburan.R;
 
 import java.util.HashMap;

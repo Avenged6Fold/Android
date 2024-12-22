@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.project.jemberliburan.Model.Destinasi;
+import com.project.jemberliburan.model.Destinasi;
 import com.project.jemberliburan.R;
 
 import java.util.List;

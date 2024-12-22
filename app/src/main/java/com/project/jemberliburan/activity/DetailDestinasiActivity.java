@@ -1,16 +1,17 @@
 package com.project.jemberliburan.activity;
 
-import android.os.Bundle;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
+import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.gson.Gson;
 import com.project.jemberliburan.R;
 
@@ -22,6 +23,8 @@ public class DetailDestinasiActivity extends AppCompatActivity {
     private int imageResId;
     private String address;
     private Double rating;
+    private int wisataId;
+    private String deskripsi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,74 +41,24 @@ public class DetailDestinasiActivity extends AppCompatActivity {
         TextView textViewDeskripsi = findViewById(R.id.textViewDeskripsiDetail);
         ImageView backButton = findViewById(R.id.icon_back);
 
+        // Tambahkan tombol ulasan
+        Button buttonLihatUlasan = findViewById(R.id.buttonLihatUlasan);
+        Button buttonTambahUlasanDetail = findViewById(R.id.buttonTambahUlasanDetail);
+
         // SharedPreferences untuk menyimpan status favorit
         sharedPreferences = getSharedPreferences("Favorites", MODE_PRIVATE);
 
         // Ambil data dari Intent
         Intent intent = getIntent();
         name = intent.getStringExtra("name");
-        imageResId = getIntent().getIntExtra("imageResId", R.drawable.img_default);
-        address = getIntent().getStringExtra("address");
-        rating = getIntent().getDoubleExtra("rating", 0.0);
-        String deskripsi = "Deskripsi untuk destinasi ini belum tersedia.";
+        imageResId = intent.getIntExtra("imageResId", R.drawable.img_default);
+        address = intent.getStringExtra("address");
+        rating = intent.getDoubleExtra("rating", 0.0);
+        wisataId = intent.getIntExtra("wisata_id", -1);
+        deskripsi = intent.getStringExtra("deskripsi");
 
-        // Gunakan switch-case untuk menentukan detail
-        switch (name) {
-            case "Pantai Papuma":
-                imageResId = R.drawable.img_papuma;
-                address = "Wuluhan, Jember";
-                rating = 4.9;
-                deskripsi = "Pantai Papuma (Pantai Pasir Putih Malikan) terkenal dengan keindahan pasir putih dan batu karangnya yang ikonik...";
-                break;
-
-            case "Pantai Teluk Love":
-                imageResId = R.drawable.img_teluklove;
-                address = "Ambulu, Jember";
-                rating = 4.8;
-                deskripsi = "Teluk Love adalah teluk berbentuk hati yang terlihat dari ketinggian...";
-                break;
-
-            case "Pantai Watu Ulo":
-                imageResId = R.drawable.img_watuulo;
-                address = "Ambulu, Jember";
-                rating = 4.7;
-                deskripsi = "Pantai Watu Ulo berlokasi di Kecamatan Ambulu...";
-                break;
-
-            case "Gunung Gambir":
-                imageResId = R.drawable.img_gambir;
-                address = "Sumberbaru, Jember";
-                rating = 4.8;
-                deskripsi = "Terletak di Desa Gelang, Kecamatan Sumberbaru...";
-                break;
-
-            case "Bukit SJ88":
-                imageResId = R.drawable.img_sj88;
-                address = "Wuluhan, Jember";
-                rating = 4.8;
-                deskripsi = "Bukit SJ88 adalah destinasi wisata di Kecamatan Sumberjambe...";
-                break;
-
-            case "Rembangan":
-                imageResId = R.drawable.img_rembangan;
-                address = "Arjasa, Jember";
-                rating = 4.8;
-                deskripsi = "Rembangan adalah kawasan wisata pegunungan yang berlokasi di Kecamatan Arjasa...";
-                break;
-
-            case "Air Terjun Tancak":
-                imageResId = R.drawable.img_airterjun_tancak;
-                address = "Panti, Jember";
-                rating = 4.8;
-                deskripsi = "Air Terjun Tancak terletak di Desa Suci, Kecamatan Panti...";
-                break;
-
-            case "Air Terjun Antrokan":
-                imageResId = R.drawable.img_airterjun_antrokan;
-                address = "Tanggul, Jember";
-                rating = 4.8;
-                deskripsi = "Berada di Desa Manggisan, Kecamatan Tanggul...";
-                break;
+        if (deskripsi == null || deskripsi.isEmpty()) {
+            deskripsi = "Deskripsi untuk destinasi ini belum tersedia.";
         }
 
         // Set data ke Views
@@ -135,6 +88,20 @@ public class DetailDestinasiActivity extends AppCompatActivity {
 
         // Klik listener untuk tombol kembali
         backButton.setOnClickListener(v -> finish());
+
+        // Klik listener untuk tombol lihat ulasan
+        buttonLihatUlasan.setOnClickListener(v -> {
+            Intent ulasanIntent = new Intent(DetailDestinasiActivity.this, UlasanActivity.class);
+            ulasanIntent.putExtra("wisata_id", wisataId);
+            startActivity(ulasanIntent);
+        });
+
+        // Klik listener untuk tombol tambah ulasan
+        buttonTambahUlasanDetail.setOnClickListener(v -> {
+            Intent postUlasanIntent = new Intent(DetailDestinasiActivity.this, PostUlasanActivity.class);
+            postUlasanIntent.putExtra("wisata_id", wisataId);
+            startActivity(postUlasanIntent);
+        });
     }
 
     private void saveToFavorites(String name, int imageResId, String address, double rating) {
@@ -146,7 +113,6 @@ public class DetailDestinasiActivity extends AppCompatActivity {
 
         Log.d("DetailDestinasiActivity", "Favorit disimpan: " + json);
     }
-
 
     private void removeFromFavorites(String name) {
         sharedPreferences.edit().remove(name).apply();
@@ -160,7 +126,7 @@ public class DetailDestinasiActivity extends AppCompatActivity {
     // Kelas untuk menyimpan data favorit
     private static class FavoriteItem {
         String name;
-        int imageResId; // Ubah dari imageResource ke imageResId
+        int imageResId;
         String address;
         double rating;
 
@@ -171,5 +137,4 @@ public class DetailDestinasiActivity extends AppCompatActivity {
             this.rating = rating;
         }
     }
-
 }

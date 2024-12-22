@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,10 +22,10 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.project.jemberliburan.Model.RiwayatTiket;
+import com.project.jemberliburan.model.RiwayatTiket;
 import com.project.jemberliburan.R;
 import com.project.jemberliburan.adapter.RiwayatTiketAdapter;
-import com.project.jemberliburan.Connection.Db_Contract;
+import com.project.jemberliburan.connection.Db_Contract;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,8 +34,6 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class CekTiketActivity extends AppCompatActivity {
 
@@ -42,6 +41,7 @@ public class CekTiketActivity extends AppCompatActivity {
     private Button buttonCekTiket;
     private RecyclerView recyclerViewTiket;
     private TextView textViewPesan;
+    private ProgressBar progressBarLoading; // Tambahkan ini
 
     private RiwayatTiketAdapter adapter;
     private ArrayList<RiwayatTiket> tiketList;
@@ -58,6 +58,7 @@ public class CekTiketActivity extends AppCompatActivity {
         buttonCekTiket = findViewById(R.id.buttonCekTiket);
         recyclerViewTiket = findViewById(R.id.recyclerViewTiket);
         textViewPesan = findViewById(R.id.textViewPesan);
+        progressBarLoading = findViewById(R.id.progressBar); // Inisialisasi ProgressBar
 
         // Setup RecyclerView
         recyclerViewTiket.setLayoutManager(new LinearLayoutManager(this));
@@ -94,7 +95,7 @@ public class CekTiketActivity extends AppCompatActivity {
                 }
                 fetchTiket(query, jenisCari);
             } else {
-                Toast.makeText(CekTiketActivity.this, "Silakan masukkan Order ID atau Destinasi.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CekTiketActivity.this, "Masukkan Order ID atau Destinasi.", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -116,8 +117,12 @@ public class CekTiketActivity extends AppCompatActivity {
         // Menonaktifkan tombol dan menyembunyikan pesan
         buttonCekTiket.setEnabled(false);
         textViewPesan.setVisibility(View.GONE);
+        recyclerViewTiket.setVisibility(View.GONE); // Sembunyikan RecyclerView saat loading
         tiketList.clear();
         adapter.notifyDataSetChanged();
+
+        // Tampilkan ProgressBar
+        progressBarLoading.setVisibility(View.VISIBLE);
 
         String encodedQuery = "";
         try {
@@ -126,6 +131,7 @@ public class CekTiketActivity extends AppCompatActivity {
             e.printStackTrace();
             Toast.makeText(this, "Terjadi kesalahan dalam encoding query.", Toast.LENGTH_SHORT).show();
             buttonCekTiket.setEnabled(true);
+            progressBarLoading.setVisibility(View.GONE); // Sembunyikan ProgressBar
             return;
         }
 
@@ -143,6 +149,7 @@ public class CekTiketActivity extends AppCompatActivity {
             e.printStackTrace();
             Toast.makeText(this, "Terjadi kesalahan dalam encoding email.", Toast.LENGTH_SHORT).show();
             buttonCekTiket.setEnabled(true);
+            progressBarLoading.setVisibility(View.GONE); // Sembunyikan ProgressBar
             return;
         }
 
@@ -210,6 +217,8 @@ public class CekTiketActivity extends AppCompatActivity {
                         e.printStackTrace();
                         Toast.makeText(CekTiketActivity.this, "Terjadi kesalahan saat parsing data.", Toast.LENGTH_SHORT).show();
                     }
+                    // Sembunyikan ProgressBar setelah respons diterima
+                    progressBarLoading.setVisibility(View.GONE);
                     buttonCekTiket.setEnabled(true);
                 },
                 error -> {
@@ -217,6 +226,8 @@ public class CekTiketActivity extends AppCompatActivity {
                     Toast.makeText(CekTiketActivity.this, "Terjadi kesalahan saat mengambil data.", Toast.LENGTH_SHORT).show();
                     textViewPesan.setVisibility(View.VISIBLE);
                     textViewPesan.setText("Terjadi kesalahan server.");
+                    // Sembunyikan ProgressBar setelah terjadi kesalahan
+                    progressBarLoading.setVisibility(View.GONE);
                     buttonCekTiket.setEnabled(true);
                 });
 

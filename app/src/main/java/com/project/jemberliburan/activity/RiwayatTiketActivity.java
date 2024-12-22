@@ -16,10 +16,10 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.project.jemberliburan.Model.RiwayatTiket;
+import com.project.jemberliburan.model.RiwayatTiket;
 import com.project.jemberliburan.R;
 import com.project.jemberliburan.adapter.RiwayatTiketAdapter;
-import com.project.jemberliburan.Connection.Db_Contract;
+import com.project.jemberliburan.connection.Db_Contract;
 
 import org.json.JSONArray;
 import org.json.JSONException;

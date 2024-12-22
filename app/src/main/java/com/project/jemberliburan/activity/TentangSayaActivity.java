@@ -33,12 +33,12 @@ import androidx.core.content.ContextCompat;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
-import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
-import com.project.jemberliburan.Connection.Db_Contract;
-import com.project.jemberliburan.Connection.MySingleton;
-import com.project.jemberliburan.Connection.VolleyMultipartRequest;
+import com.project.jemberliburan.connection.Db_Contract;
+import com.project.jemberliburan.connection.MySingleton;
+import com.project.jemberliburan.connection.VolleyMultipartRequest;
 import com.project.jemberliburan.R;
+import com.project.jemberliburan.dialog.ConfirmUpdateDialog;
 import com.yalantis.ucrop.UCrop;
 
 import org.json.JSONException;
@@ -50,7 +50,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TentangSayaActivity extends AppCompatActivity {
+public class TentangSayaActivity extends AppCompatActivity implements ConfirmUpdateDialog.ConfirmUpdateListener {
 
     private ImageView icon_back, imgProfile;
     private Button btnSave;
@@ -199,19 +199,52 @@ public class TentangSayaActivity extends AppCompatActivity {
             if (usernameInput.isEmpty() || noTelpInput.isEmpty() || rgJenisKelamin.getCheckedRadioButtonId() == -1 || alamatInput.isEmpty()) {
                 Toast.makeText(TentangSayaActivity.this, "Harap lengkapi semua data!", Toast.LENGTH_SHORT).show();
             } else {
-                // Ambil pilihan jenis kelamin
-                String jenisKelamin = "";
-                int selectedId = rgJenisKelamin.getCheckedRadioButtonId();
-                if (selectedId == R.id.rb_laki) {
-                    jenisKelamin = rbLaki.getText().toString();
-                } else if (selectedId == R.id.rb_perempuan) {
-                    jenisKelamin = rbPerempuan.getText().toString();
-                }
-
-                // Panggil metode untuk mengupdate profil
-                updateProfile(userId, emailInput, usernameInput, noTelpInput, jenisKelamin, alamatInput);
+                // Tampilkan dialog konfirmasi update profil
+                showConfirmUpdateDialog();
             }
         });
+    }
+
+    /**
+     * Menampilkan dialog konfirmasi untuk menyimpan perubahan profil.
+     */
+    private void showConfirmUpdateDialog() {
+        ConfirmUpdateDialog dialog = new ConfirmUpdateDialog();
+        dialog.show(getSupportFragmentManager(), "ConfirmUpdateDialog");
+    }
+
+    /**
+     * Implementasi dari ConfirmUpdateListener yang dipanggil saat konfirmasi update diterima.
+     */
+    @Override
+    public void onConfirmUpdate() {
+        // Ambil data dari EditText dan RadioButton
+        String emailInput = etEmail.getText().toString().trim(); // Email tetap diambil dari EditText yang dinonaktifkan
+        String usernameInput = etUsername.getText().toString().trim();
+        String noTelpInput = etPhone.getText().toString().trim();
+        String alamatInput = etAddress.getText().toString().trim();
+
+        // Ambil pilihan jenis kelamin
+        String jenisKelamin = "";
+        int selectedId = rgJenisKelamin.getCheckedRadioButtonId();
+        if (selectedId == R.id.rb_laki) {
+            jenisKelamin = rbLaki.getText().toString();
+        } else if (selectedId == R.id.rb_perempuan) {
+            jenisKelamin = rbPerempuan.getText().toString();
+        }
+
+        // Panggil metode untuk mengupdate profil
+        // Ambil userId dari SharedPreferences
+        SharedPreferences preferences = getSharedPreferences("login_prefs", Context.MODE_PRIVATE);
+        int userId = preferences.getInt("user_id", -1);
+        if (userId != -1) {
+            updateProfile(userId, emailInput, usernameInput, noTelpInput, jenisKelamin, alamatInput);
+        } else {
+            Toast.makeText(this, "UserID tidak ditemukan. Silakan login ulang.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(TentangSayaActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     /**

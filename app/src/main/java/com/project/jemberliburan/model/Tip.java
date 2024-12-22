@@ -1,9 +1,9 @@
-package com.project.jemberliburan.Model;
+package com.project.jemberliburan.model;
 
-public class Fitur {
+public class Tip {
     private int imageResId;
 
-    public Fitur(int imageResId) {
+    public Tip(int imageResId) {
         this.imageResId = imageResId;
     }
 

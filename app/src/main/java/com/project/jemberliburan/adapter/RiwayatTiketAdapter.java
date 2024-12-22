@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.project.jemberliburan.Model.RiwayatTiket;
+import com.project.jemberliburan.model.RiwayatTiket;
 import com.project.jemberliburan.R;
 
 import java.util.List;

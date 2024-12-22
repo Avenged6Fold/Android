@@ -10,7 +10,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.project.jemberliburan.R;
 import com.project.jemberliburan.adapter.WellcomeSliderAdapter;
-import com.project.jemberliburan.Model.Wellcome;
+import com.project.jemberliburan.model.Wellcome;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
 import java.util.ArrayList;

@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.project.jemberliburan.R;
-import com.project.jemberliburan.Model.Ticket;
+import com.project.jemberliburan.model.Ticket;
 import java.util.ArrayList;
 import java.util.List;
 

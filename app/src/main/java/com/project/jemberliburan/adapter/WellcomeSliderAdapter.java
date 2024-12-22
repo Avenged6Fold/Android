@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.project.jemberliburan.Model.Wellcome;
+import com.project.jemberliburan.model.Wellcome;
 import com.project.jemberliburan.R;
 import com.project.jemberliburan.activity.LoginActivity;
 

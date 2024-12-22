@@ -12,7 +12,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.project.jemberliburan.R;
-import com.project.jemberliburan.Model.Profile;
+import com.project.jemberliburan.model.Profile;
 
 import java.util.List;
 

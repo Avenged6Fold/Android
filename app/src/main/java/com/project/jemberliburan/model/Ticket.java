@@ -1,4 +1,4 @@
-package com.project.jemberliburan.Model;
+package com.project.jemberliburan.model;
 
 public class Ticket {
     private int imageResId;

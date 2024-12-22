@@ -11,7 +11,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.project.jemberliburan.R;
-import com.project.jemberliburan.Model.Category;
+import com.project.jemberliburan.model.Category;
 
 import java.util.List;
 

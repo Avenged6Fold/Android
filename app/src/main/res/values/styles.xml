@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Tema untuk LogoutConfirmationDialog -->
+    <style name="TransparentDialog" parent="Theme.AppCompat.Light.Dialog">
+    <item name="android:windowBackground">@android:color/transparent</item>
+    <item name="android:windowFrame">@null</item>
+    <item name="android:windowNoTitle">true</item>
+    </style>
+
     <style name="Theme.Design.NoActionBar." parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/primary_colour</item>
         <item name="colorSecondary">@color/secondary_colour</item>
@@ -7,11 +14,14 @@
         <item name="colorAccent">@color/font_colour</item>
         <item name="colorPrimaryDark">@color/black</item>
         <item name="colorControlHighlight">@color/white</item>
+
+        <item name="fontFamily">@font/poppinsbold</item>
+        <item name="android:textSize">14dp</item>
     </style>
 
     <style name="CustomMenuTextAppearance" parent="TextAppearance.AppCompat.Menu">
         <item name="fontFamily">@font/poppinsbold</item>
-        <item name="android:textSize">14dp</item> <!-- Ukuran teks, sesuaikan jika diperlukan -->
+        <item name="android:textSize">14dp</item>
     </style>
 
     <style name="CircleImage">

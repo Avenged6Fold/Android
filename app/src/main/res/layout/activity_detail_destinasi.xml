@@ -21,12 +21,11 @@
         />
 
     <View
+        android:id="@+id/view_detailtip"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/view_home"
         android:layout_marginTop="230dp"
-        android:id="@+id/view_detailtip"
-        />
+        android:background="@drawable/view_home" />
 
     <TextView
         android:id="@+id/textViewNameDetail"
@@ -90,5 +89,31 @@
         android:layout_marginTop="5dp"
         android:textSize="18dp"
         android:textColor="@color/font_colour"/>
+
+    <!-- Tambahkan tombol di bawah TextViewDeskripsiDetail di dalam RelativeLayout -->
+
+    <Button
+        android:id="@+id/buttonLihatUlasan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewDeskripsiDetail"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="-66dp"
+        android:backgroundTint="@color/primary_colour"
+        android:text="Lihat Ulasan"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/buttonTambahUlasanDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonLihatUlasan"
+        android:layout_marginStart="156dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="-50dp"
+        android:layout_toEndOf="@+id/buttonLihatUlasan"
+        android:backgroundTint="@color/primary_colour"
+        android:text="Tambah Ulasan"
+        android:textColor="@color/white" />
 
 </RelativeLayout>

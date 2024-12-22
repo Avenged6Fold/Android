@@ -8,13 +8,15 @@ import android.widget.ImageView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.project.jemberliburan.R;
 import com.project.jemberliburan.adapter.DestinasiAdapter;
+import com.project.jemberliburan.model.Destinasi;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +24,7 @@ import java.util.Map;
 public class FavoritSayaActivity extends AppCompatActivity {
 
     private RecyclerView recyclerViewFavorit;
-    private List<DestinasiAdapter.DestinasiItem> favoriteList;
+    private List<Destinasi> favoriteList;
     private DestinasiAdapter destinasiAdapter;
 
     @Override
@@ -58,7 +60,8 @@ public class FavoritSayaActivity extends AppCompatActivity {
         for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
             if (entry.getValue() instanceof String) {
                 String json = (String) entry.getValue();
-                DestinasiAdapter.DestinasiItem destinasi = gson.fromJson(json, DestinasiAdapter.DestinasiItem.class);
+                Type destinasiType = new TypeToken<Destinasi>() {}.getType();
+                Destinasi destinasi = gson.fromJson(json, destinasiType);
 
                 if (destinasi != null) {
                     favoriteList.add(destinasi);
@@ -68,7 +71,4 @@ public class FavoritSayaActivity extends AppCompatActivity {
             }
         }
     }
-
-
-
 }

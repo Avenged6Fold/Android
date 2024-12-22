@@ -11,8 +11,10 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.project.jemberliburan.R;
 import com.project.jemberliburan.adapter.DestinasiAdapter;
+import com.project.jemberliburan.model.Destinasi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +23,7 @@ public class SearchDestinasiActivity extends AppCompatActivity {
 
     private EditText searchInput;
     private RecyclerView recyclerViewSearchResults;
-    private List<DestinasiAdapter.DestinasiItem> destinasiList;
+    private List<Destinasi> destinasiList;
     private DestinasiAdapter destinasiAdapter;
 
     @Override
@@ -38,16 +40,16 @@ public class SearchDestinasiActivity extends AppCompatActivity {
         // Tombol kembali
         backButton.setOnClickListener(v -> finish());
 
-        // Data dummy destinasi
+        // Data dummy destinasi dengan wisataId yang valid
         destinasiList = new ArrayList<>();
-        destinasiList.add(new DestinasiAdapter.DestinasiItem("Pantai Papuma", R.drawable.img_papuma, "Wuluhan, Jember", 4.9, null));
-        destinasiList.add(new DestinasiAdapter.DestinasiItem("Pantai Teluk Love", R.drawable.img_teluklove, "Ambulu, Jember", 4.8, null));
-        destinasiList.add(new DestinasiAdapter.DestinasiItem("Pantai Watu Ulo", R.drawable.img_watuulo, "Ambulu, Jember", 4.8, null));
-        destinasiList.add(new DestinasiAdapter.DestinasiItem("Bukit SJ88", R.drawable.img_sj88, "Wuluhan, Jember", 4.8, null));
-        destinasiList.add(new DestinasiAdapter.DestinasiItem("Rembangan", R.drawable.img_rembangan, "Arjasa, Jember", 4.8, null));
-        destinasiList.add(new DestinasiAdapter.DestinasiItem("Gunung Gambir", R.drawable.img_gambir, "Sumberbaru, Jember", 4.8, null));
-        destinasiList.add(new DestinasiAdapter.DestinasiItem("Air Terjun Tancak", R.drawable.img_airterjun_tancak, "Panti, Jember", 4.8, null));
-        destinasiList.add(new DestinasiAdapter.DestinasiItem("Air Terjun Antrokan", R.drawable.img_airterjun_antrokan, "Tanggul, Jember", 4.8, null));
+        destinasiList.add(new Destinasi("Pantai Papuma", R.drawable.img_papuma, "Wuluhan, Jember", 4.9, 1, "Deskripsi Pantai Papuma"));
+        destinasiList.add(new Destinasi("Pantai Teluk Love", R.drawable.img_teluklove, "Ambulu, Jember", 4.8, 2, "Deskripsi Pantai Teluk Love"));
+        destinasiList.add(new Destinasi("Pantai Watu Ulo", R.drawable.img_watuulo, "Ambulu, Jember", 4.8, 3, "Deskripsi Pantai Watu Ulo"));
+        destinasiList.add(new Destinasi("Gunung Gambir", R.drawable.img_gambir, "Sumberbaru, Jember", 4.8, 4, "Deskripsi Gunung Gambir"));
+        destinasiList.add(new Destinasi("Bukit SJ88", R.drawable.img_sj88, "Wuluhan, Jember", 4.8, 5, "Deskripsi Bukit SJ88"));
+        destinasiList.add(new Destinasi("Rembangan", R.drawable.img_rembangan, "Arjasa, Jember", 4.8, 6, "Deskripsi Rembangan"));
+        destinasiList.add(new Destinasi("Air Terjun Tancak", R.drawable.img_airterjun_tancak, "Panti, Jember", 4.8, 7, "Deskripsi Air Terjun Tancak"));
+        destinasiList.add(new Destinasi("Air Terjun Antrokan", R.drawable.img_airterjun_antrokan, "Tanggul, Jember", 4.8, 8, "Deskripsi Air Terjun Antrokan"));
 
         // Setup RecyclerView dengan GridLayout
         recyclerViewSearchResults.setLayoutManager(new GridLayoutManager(this, 2));
@@ -74,8 +76,8 @@ public class SearchDestinasiActivity extends AppCompatActivity {
     }
 
     private void filterDestinasi(String query) {
-        List<DestinasiAdapter.DestinasiItem> filteredList = new ArrayList<>();
-        for (DestinasiAdapter.DestinasiItem item : destinasiList) {
+        List<Destinasi> filteredList = new ArrayList<>();
+        for (Destinasi item : destinasiList) {
             if (item.getName().toLowerCase().contains(query.toLowerCase())) {
                 filteredList.add(item);
             }

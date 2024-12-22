@@ -1,4 +1,4 @@
-package com.project.jemberliburan.Model;
+package com.project.jemberliburan.model;
 
 public class RiwayatTiket {
     private String orderId;

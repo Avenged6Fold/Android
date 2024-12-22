@@ -11,4 +11,8 @@
     <color name="status_unpaid">#FF3B30</color> <!-- Merah untuk Belum Dibayar -->
     <color name="status_paid">#4CD964</color>   <!-- Hijau untuk Sudah Dibayar -->
     <color name="status_pending">#FFCC00</color>
+
+    <color name="gray">#B0B0B0</color> <!-- Warna abu-abu untuk bintang kosong -->
+    <color name="yellow">#FFD700</color> <!-- Warna kuning untuk bintang terisi -->
+
 </resources>
